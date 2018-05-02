@@ -1,23 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ezword.ezword.Activities.MainActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.Toolbar>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/main_view_pager"
+    android:background="@drawable/main_background"
+    tools:context="com.ezword.ezword.activities.MainActivity" >
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
-    <TableLayout
-        android:id="@+id/main_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </TableLayout>
-</android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/main_appbar_layout_0"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            style="@style/Widget.AppCompat.ActionBar.TabText"
+            app:layout_constraintVertical_weight="10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/main_view_pager">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:minHeight="?android:attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_width="match_parent"/>
+        </android.support.design.widget.AppBarLayout>
+    
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintVertical_weight="82"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_appbar_layout_0"
+            app:layout_constraintBottom_toTopOf="@id/main_appbar_layout">
+        </android.support.v4.view.ViewPager>
+    
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/main_appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            style="@style/Widget.AppCompat.ActionBar.TabText"
+            app:layout_constraintVertical_weight="8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_view_pager">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/main_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </android.support.design.widget.AppBarLayout>
+    </android.support.constraint.ConstraintLayout>
+    
+    <android.support.design.widget.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOL"/>
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

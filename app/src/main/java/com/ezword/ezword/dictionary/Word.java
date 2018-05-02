@@ -1,4 +1,4 @@
-package com.ezword.ezword.Dictionary;
+package com.ezword.ezword.dictionary;
 
 /**
  * Created by chita on 02/05/2018.

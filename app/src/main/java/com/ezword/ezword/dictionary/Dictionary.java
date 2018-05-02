@@ -1,4 +1,4 @@
-package com.ezword.ezword.Dictionary;
+package com.ezword.ezword.dictionary;
 
 import java.util.ArrayList;
 

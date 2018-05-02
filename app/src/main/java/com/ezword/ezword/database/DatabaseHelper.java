@@ -1,4 +1,4 @@
-package com.ezword.ezword.Database;
+package com.ezword.ezword.database;
 
 /**
  * Created by chita on 02/05/2018.

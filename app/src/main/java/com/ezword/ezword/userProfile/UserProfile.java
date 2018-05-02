@@ -1,8 +1,7 @@
-package com.ezword.ezword.UserProfile;
+package com.ezword.ezword.userProfile;
 
-import com.ezword.ezword.Dictionary.Word;
+import com.ezword.ezword.dictionary.Word;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

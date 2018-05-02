@@ -1,4 +1,4 @@
-package com.ezword.ezword.UserProfile;
+package com.ezword.ezword.userProfile;
 
 /**
  * Created by chita on 02/05/2018.

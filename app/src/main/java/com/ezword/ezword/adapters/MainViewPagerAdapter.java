@@ -1,13 +1,13 @@
-package com.ezword.ezword.Adapter;
+package com.ezword.ezword.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.ezword.ezword.HomeFragment;
 import com.ezword.ezword.R;
-import com.ezword.ezword.ReviewFragment;
+import com.ezword.ezword.fragments.HomeFragment;
+import com.ezword.ezword.fragments.ReviewFragment;
 
 /**
  * Created by chita on 02/05/2018.
@@ -45,9 +45,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Tra từ";
+                return mContext.getString(R.string.lookup);
             case 1:
-                return "Học";
+                return mContext.getString(R.string.revise);
             default:
                 return null;
         }
