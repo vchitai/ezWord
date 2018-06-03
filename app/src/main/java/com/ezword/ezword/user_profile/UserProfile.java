@@ -1,4 +1,4 @@
-package com.ezword.ezword.userProfile;
+package com.ezword.ezword.user_profile;
 
 import com.ezword.ezword.dictionary.Word;
 

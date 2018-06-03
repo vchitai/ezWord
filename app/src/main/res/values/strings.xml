@@ -6,6 +6,6 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_closed">Closed</string>
 
-    <string name="lookup">Tra từ</string>
-    <string name="revise">Ôn tập</string>
+    <string name="lookup">Look Up!</string>
+    <string name="revise">Revise</string>
 </resources>

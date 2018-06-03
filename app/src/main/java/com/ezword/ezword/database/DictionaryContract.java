@@ -3,7 +3,6 @@ package com.ezword.ezword.database;
 import android.net.Uri;
 
 import android.content.ContentResolver;
-import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class DictionaryContract {
