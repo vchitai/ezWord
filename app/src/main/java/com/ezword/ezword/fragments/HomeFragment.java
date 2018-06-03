@@ -3,6 +3,7 @@ package com.ezword.ezword.fragments;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.ezword.ezword.R;
 import com.ezword.ezword.activities.MainActivity;
+import com.ezword.ezword.activities.SingleWordActivity;
 
 
 /**
@@ -40,6 +42,13 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         setUpSearchView(view);
+        view.findViewById(R.id.home_today_word).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SingleWordActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
