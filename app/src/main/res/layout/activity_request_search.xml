@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="400dp"
+    android:minHeight="200dp"
     tools:context="com.ezword.ezword.activities.RequestSearchActivity">
-
+    <include layout="@layout/word_item"/>
 </android.support.constraint.ConstraintLayout>

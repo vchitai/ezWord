@@ -36,7 +36,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name="com.ezword.ezword.activities.RequestSearchActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog">
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
             <intent-filter android:label="Look Up!">
                 <action android:name="android.intent.action.PROCESS_TEXT" />
 

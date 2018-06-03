@@ -1,40 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/nav_features"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/lookup" />
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="@string/history" />
         <item
-            android:id="@+id/nav_photos"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/lookup" />
-        <item
-            android:id="@+id/nav_movies"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/lookup" />
-
-        <item
-            android:id="@+id/nav_notifications"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/lookup" />
-
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu"
-            android:title="@string/lookup" />
+            android:id="@+id/nav_bookmark"
+            android:icon="@drawable/ic_bookmark_black_24dp"
+            android:title="@string/bookmark" />
     </group>
 
-    <item android:title="Other">
-        <menu>
-            <item
-                android:id="@+id/nav_about_us"
-                android:title="@string/lookup" />
-            <item
-                android:id="@+id/nav_privacy_policy"
-                android:title="@string/lookup" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/nav_contact"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_bug_report_black_24dp"
+            android:title="@string/report_bus" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="@string/help" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/about_us" />
+    </group>
 
 </menu>
