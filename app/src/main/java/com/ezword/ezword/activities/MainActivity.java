@@ -10,16 +10,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.ezword.ezword.adapters.MainViewPagerAdapter;
 import com.ezword.ezword.R;
+import com.ezword.ezword.dictionary.Dictionary;
+import com.ezword.ezword.dictionary.Word;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private MainViewPagerAdapter mMainPagerAdapter;
     private ViewPager mMainViewPager;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
+    private Dictionary mDictionary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         setUpNavigationLayout();
         setUpToolbar();
         setUpViewPager();
+
+        mDictionary = Dictionary.getInstance();
+        Word word = mDictionary.search(this, "hello");
+        Log.d("On create", word.getData("Definition"));
+        ArrayList<String> wordList = mDictionary.getRecommendations(this, "ab", 5);
+        for (int i = 0; i < 5; i++) {
+            Log.d("Array list: ", wordList.get(i));
+        }
     }
 
     private void setUpViewPager() {
