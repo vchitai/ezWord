@@ -118,7 +118,7 @@ public class DictionaryProvider extends ContentProvider {
         //ContentResolver contentResolver = context.getContentResolver();
         Cursor c = this.query(DictionaryContract.DictionaryEntry.CONTENT_URI,
                 projection, whereClause, selectionArgument, DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG + " ASC" + " LIMIT 1");
-        if (c != null) {
+        if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             res = new Word(c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG)),
                     c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE)),
@@ -142,7 +142,7 @@ public class DictionaryProvider extends ContentProvider {
         Cursor c = this.query(DictionaryContract.DictionaryEntry.CONTENT_URI,
                 projection, whereClause, selectionArgument,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG + " ASC " +"LIMIT " + limit);
-        if (c != null) {
+        if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 res.add(c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG)));

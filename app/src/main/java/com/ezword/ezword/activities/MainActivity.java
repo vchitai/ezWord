@@ -47,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
         setUpNavigationLayout();
         setUpToolbar();
         setUpViewPager();
-
+/*
         mDictionary = Dictionary.getInstance();
         Word word = mDictionary.search(this, "hello");
-        Log.d("On create", word.getData("Definition"));
+        Log.d("On create", word.getData(Word.WORD_DEFINITION));
         ArrayList<String> wordList = mDictionary.getRecommendations(this, "ab", 5);
         for (int i = 0; i < 5; i++) {
             Log.d("Array list: ", wordList.get(i));
-        }
+        }*/
     }
 
     private void setUpViewPager() {

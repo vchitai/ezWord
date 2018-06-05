@@ -14,6 +14,11 @@ public class Word {
 
     }
 
+    public static final int WORD_ENGLISH = 0;
+    public static final int WORD_TYPE = 1;
+    public static final int WORD_DEFINITION = 2;
+    public static final int WORD_PHONETIC = 3;
+
     public Word(String wordEnglish, String type, String definition, String phoneticSpelling) {
         mEnglish = wordEnglish;
         mType = type;
@@ -21,18 +26,16 @@ public class Word {
         mPhoneticSpelling = phoneticSpelling;
     }
 
-    public String getData(String tag) {
-        if (tag.equals("English")) {
-            return mEnglish;
-        }
-        else if (tag.equals("Type")) {
-            return mType;
-        }
-        else if (tag.equals("Definition")) {
-            return mDefinition;
-        }
-        else if (tag.equals("PhoneticSpelling")) {
-            return mPhoneticSpelling;
+    public String getData(int tag) {
+        switch (tag) {
+            case WORD_ENGLISH:
+                return mEnglish;
+            case WORD_TYPE:
+                return mType;
+            case WORD_DEFINITION:
+                return mDefinition;
+            case WORD_PHONETIC:
+                return mPhoneticSpelling;
         }
         return null;
     };

@@ -48,7 +48,8 @@
         </activity>
         <activity android:name=".activities.SingleWordActivity" />
         <activity android:name=".activities.ListWordActivity" />
-        <activity android:name=".activities.ReviseActivity"></activity>
+        <activity android:name=".activities.ReviseActivity" />
+        <activity android:name=".activities.QuizActivity"></activity>
     </application>
 
 </manifest>

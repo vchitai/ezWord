@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.ezword.ezword.R;
 import com.ezword.ezword.activities.MainActivity;
+import com.ezword.ezword.activities.RequestSearchActivity;
 import com.ezword.ezword.activities.SingleWordActivity;
 
 
@@ -96,9 +97,9 @@ public class HomeFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                alertDialog.setMessage("Search keyword is " + query);
-                alertDialog.show();
+                Intent intent = new Intent(getActivity(), SingleWordActivity.class);
+                intent.putExtra("searchPhrase", query);
+                startActivity(intent);
                 return false;
             }
 

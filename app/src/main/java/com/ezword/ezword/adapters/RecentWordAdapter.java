@@ -34,9 +34,9 @@ public class RecentWordAdapter extends RecyclerView.Adapter<RecentWordAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         Word currentWord = recentWord.get(position);
 
-        holder.mWordWord.setText(currentWord.getData("word"));
-        holder.mWordType.setText(currentWord.getData("type"));
-        holder.mWordDefinition.setText(currentWord.getData("definition"));
+        holder.mWordWord.setText(currentWord.getData(Word.WORD_ENGLISH));
+        holder.mWordType.setText(currentWord.getData(Word.WORD_TYPE));
+        holder.mWordDefinition.setText(currentWord.getData(Word.WORD_DEFINITION));
     }
 
     @Override

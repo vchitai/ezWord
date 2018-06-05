@@ -9,7 +9,6 @@ import java.util.ArrayList;
  */
 
 public class UserProfile {
-
     private String mName;
     private ArrayList<Word> mDiscoveredList;
     private ArrayList<Word> mReviseList;
@@ -26,7 +25,11 @@ public class UserProfile {
         return new ArrayList<>();
     }
 
-    public boolean transferDicoveredToReviseList(int posInDiscovered, int posInReviseList) {
+    public boolean transferDiscoveredToReviseList(int posInDiscovered, int posInReviseList) {
         return true;
+    }
+
+    public void updateDailyProgress() {
+
     }
 }
