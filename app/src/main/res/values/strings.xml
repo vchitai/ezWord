@@ -6,6 +6,16 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_closed">Closed</string>
 
-    <string name="lookup">Tra từ</string>
-    <string name="revise">Ôn tập</string>
+    <string name="lookup">Look Up!</string>
+    <string name="revise">Revise</string>
+    <string name="word">Word</string>
+    <string name="type">Type</string>
+    <string name="definition">Definition</string>
+    <string name="others">Others</string>
+    <string name="history">History</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="report_bus">Report Bus</string>
+    <string name="help">Help</string>
+    <string name="about_us">About Us</string>
+    <string name="settings">Settings</string>
 </resources>

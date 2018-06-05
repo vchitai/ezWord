@@ -3,68 +3,67 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:id="@+id/main_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    tools:context="com.ezword.ezword.activities.MainActivity" >
+    tools:context="com.ezword.ezword.activities.MainActivity">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/main_appbar_layout_0"
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:minHeight="?android:attr/actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            style="@style/Widget.AppCompat.ActionBar.TabText"
-            app:layout_constraintVertical_weight="10"
+            style="@style/Widget.AppCompat.Light.ActionBar.TabBar"
+            app:titleTextColor="@android:color/white"
+            android:background="@android:color/transparent"
+            app:elevation="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintVertical_weight="8"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/main_view_pager">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/main_toolbar"
-                android:minHeight="?android:attr/actionBarSize"
-                android:layout_height="?android:attr/actionBarSize"
-                android:layout_width="match_parent"/>
-        </android.support.design.widget.AppBarLayout>
-    
+            app:layout_constraintBottom_toTopOf="@id/main_view_pager"/>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintVertical_weight="82"
+            app:layout_constraintVertical_weight="88"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_appbar_layout_0"
-            app:layout_constraintBottom_toTopOf="@id/main_appbar_layout">
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar"
+            app:layout_constraintBottom_toTopOf="@id/main_tab_layout">
         </android.support.v4.view.ViewPager>
-    
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/main_appbar_layout"
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            style="@style/Widget.AppCompat.ActionBar.TabText"
+            style="@style/Widget.AppCompat.Light.ActionBar.TabBar"
+            android:background="@android:color/transparent"
             app:layout_constraintVertical_weight="8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_view_pager">
-            <android.support.design.widget.TabLayout
-                android:id="@+id/main_tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </android.support.design.widget.AppBarLayout>
+            app:layout_constraintTop_toBottomOf="@id/main_view_pager"
+            />
     </android.support.constraint.ConstraintLayout>
     
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOL"/>
+        android:fitsSystemWindows="true"
+        app:menu="@menu/main_drawer"
+        app:headerLayout="@layout/nav_header_main">
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
