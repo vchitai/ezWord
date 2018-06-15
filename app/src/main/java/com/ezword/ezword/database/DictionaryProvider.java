@@ -18,13 +18,13 @@ import com.ezword.ezword.database.DictionaryContract.DictionaryEntry;
 
 public class DictionaryProvider extends ContentProvider {
     private static DictionaryProvider mInstance = null;
-    public static final  String     LOG_TAG     = DictionaryProvider.class.getSimpleName();
+    public static final  String     TAG     = DictionaryProvider.class.getSimpleName();
     private static final int        WORD       = 100;
     private static final int        WORD_ID     = 101;
     private static final int WORD_ENG = 102;
+    private static final int WORD_SUG = 103;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private DictionaryDBHelper mDictDBHelper;
-    private SQLiteDatabase mDictDatabase;
 
     public static DictionaryProvider getInstance() {
         if (mInstance == null) {
@@ -36,14 +36,17 @@ public class DictionaryProvider extends ContentProvider {
     static {
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY, WORD);
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/#", WORD_ID);
+
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/eng/", WORD_ENG);
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/eng/*", WORD_ENG);
+
+        sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/suggestion/", WORD_SUG);
+        sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/suggestion/*", WORD_SUG);
     }
 
     @Override
     public boolean onCreate() {
         mDictDBHelper = DictionaryDBHelper.getInstance(getContext());
-        mDictDatabase = mDictDBHelper.getMyDatabase();
         return true;
     }
 
@@ -66,7 +69,9 @@ public class DictionaryProvider extends ContentProvider {
                 cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case WORD_ENG:
-                selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + " LIKE ?";
+                cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case WORD_SUG:
                 cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default:
@@ -81,6 +86,7 @@ public class DictionaryProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case WORD:
+            case WORD_SUG:
                 return DictionaryEntry.CONTENT_LIST_TYPE;
             case WORD_ID:
             case WORD_ENG:

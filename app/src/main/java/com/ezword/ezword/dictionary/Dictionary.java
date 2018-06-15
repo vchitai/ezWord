@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.ezword.ezword.database.DictionaryContract;
+import com.ezword.ezword.database.DictionaryContract.DictionaryEntry;
 import com.ezword.ezword.database.DictionaryDBHelper;
 
 import java.util.ArrayList;
@@ -33,16 +34,22 @@ public class Dictionary {
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
         String []selectionArgs = new String[]{
-                searchPhrase
+                searchPhrase+"%"
         };
+        String selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + "LIKE ?";
+
         DictionaryDBHelper.getInstance(context).open();
-        Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_ENG, projection, null, selectionArgs, null);
+        Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_ENG, projection, selection, selectionArgs, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
-            res = new Word(c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG)),
-                    c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE)),
-                    c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION)),
-                    c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING)));
+            int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
+            int wordTypeColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE);
+            int wordDefColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION);
+            int wordPronColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING);
+            res = new Word(c.getString(wordEngColumnIndex),
+                    c.getString(wordTypeColumnIndex),
+                    c.getString(wordDefColumnIndex),
+                    c.getString(wordPronColumnIndex));
             c.close();
         }
         DictionaryDBHelper.getInstance(context).close();
@@ -69,9 +76,34 @@ public class Dictionary {
         finalRes = res.toArray(finalRes);
         return finalRes;
     }
-/*
-    public ArrayList<String> getRecommendations(Context context, String searchPhrase, Integer limit) {
+
+    public ArrayList<String> getRecommendations(Context context, String searchPhrase, int limit) {
+        ArrayList<String> res = new ArrayList<>();
+        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG};
+        String []selectionArgs = new String[]{
+                searchPhrase + "%",
+                String.valueOf(limit)
+        };
+        String selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + " LIKE ?";
+        String sortOrder = DictionaryEntry.COLUMN_WORD_WORD_ENG + " ASC LIMIT ?";
+
+        DictionaryDBHelper.getInstance(context).open();
+        Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_SUG, projection, selection, selectionArgs, sortOrder);
+        if (c!=null) {
+            try {
+                int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
+                while (c.moveToNext()) {
+                    res.add(c.getString(wordEngColumnIndex));
+                }
+            } finally {
+                c.close();
+            }
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        return res;
+
+        /*
         DictionaryProvider dictionaryProvider = DictionaryProvider.getInstance();
-        return dictionaryProvider.getRecommendations(context, searchPhrase, limit);
-    }*/
+        return dictionaryProvider.getRecommendations(context, searchPhrase, limit);*/
+    }
 }

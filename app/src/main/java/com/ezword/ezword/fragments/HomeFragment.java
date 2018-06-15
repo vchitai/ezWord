@@ -12,13 +12,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ezword.ezword.R;
 import com.ezword.ezword.activities.SingleWordActivity;
-import com.ezword.ezword.dictionary.Dictionary;
+import com.ezword.ezword.adapters.CustomSearchAutoCompleteAdapter;
 
 
 /**
@@ -75,8 +74,8 @@ public class HomeFragment extends Fragment {
 
         // Create a new ArrayAdapter and add data to search auto complete object.
         //String dataArr[] = {"Apple" , "Amazon" , "Amd", "Microsoft", "Microwave", "MicroNews", "Intel", "Intelligence"};
-        String dataArr[] = Dictionary.getInstance().getAllWords(getContext());
-        ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, dataArr);
+        //String dataArr[] = Dictionary.getInstance().getAllWords(getContext());
+        CustomSearchAutoCompleteAdapter newsAdapter = new CustomSearchAutoCompleteAdapter(getContext(), android.R.layout.simple_dropdown_item_1line);
         searchAutoComplete.setAdapter(newsAdapter);
 
         // Listen to search view item on click event.
