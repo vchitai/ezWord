@@ -13,7 +13,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.ezword.ezword.R;
 import com.ezword.ezword.activities.SingleWordActivity;
@@ -27,16 +26,24 @@ public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        setUpSearchView(view);
+        setupSearchArea(view);
+        setupTodayWord(view);
+        setupRecentlySearch(view);
+        return view;
+    }
+
+    private void setupRecentlySearch(View view) {
+    }
+
+    private void setupTodayWord(View view) {
         view.findViewById(R.id.home_today_word).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,16 +51,16 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        return view;
+    }
+    private void setupSearchArea(View view) {
+        SearchView searchView = view.findViewById(R.id.home_search_view);
+
+        setupSearchView(searchView);
+        setupAutoCompleteSearchView(searchView);
     }
 
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    private void setCustomThing(SearchView searchView) {
-        EditText searchPlate = (EditText) searchView.findViewById(R.id.search_src_text);
+    private void setupSearchView(SearchView searchView) {
+        EditText searchPlate = searchView.findViewById(R.id.search_src_text);
         searchPlate.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchPlate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -65,35 +72,29 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setUpSearchView(View view) {
-        SearchView searchView = view.findViewById(R.id.home_search_view);
+    private void setupAutoCompleteSearchView(SearchView searchView) {
 
-        setCustomThing(searchView);
-        // Get SearchView autocomplete object.
-        final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        final SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
 
-        // Create a new ArrayAdapter and add data to search auto complete object.
-        //String dataArr[] = {"Apple" , "Amazon" , "Amd", "Microsoft", "Microwave", "MicroNews", "Intel", "Intelligence"};
-        //String dataArr[] = Dictionary.getInstance().getAllWords(getContext());
         CustomSearchAutoCompleteAdapter newsAdapter = new CustomSearchAutoCompleteAdapter(getContext(), android.R.layout.simple_dropdown_item_1line);
         searchAutoComplete.setAdapter(newsAdapter);
 
-        // Listen to search view item on click event.
         searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
-                String queryString=(String)adapterView.getItemAtPosition(itemIndex);
-                searchAutoComplete.setText("" + queryString);
-                Toast.makeText(getContext(), "you clicked " + queryString, Toast.LENGTH_LONG).show();
+                String searchPhrase = (String)adapterView.getItemAtPosition(itemIndex);
+                searchAutoComplete.setText(searchPhrase);
+                Intent intent = new Intent(getActivity(), SingleWordActivity.class);
+                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, searchPhrase);
+                startActivity(intent);
             }
         });
 
-        // Below event is triggered when submit search query.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = new Intent(getActivity(), SingleWordActivity.class);
-                intent.putExtra("searchPhrase", query);
+                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, query);
                 startActivity(intent);
                 return false;
             }
@@ -103,7 +104,15 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
-
     }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+
 
 }

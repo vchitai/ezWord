@@ -23,6 +23,7 @@ public class DictionaryProvider extends ContentProvider {
     private static final int        WORD_ID     = 101;
     private static final int WORD_ENG = 102;
     private static final int WORD_SUG = 103;
+    private static final int WORD_RAND = 104;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private DictionaryDBHelper mDictDBHelper;
 
@@ -42,6 +43,8 @@ public class DictionaryProvider extends ContentProvider {
 
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/suggestion/", WORD_SUG);
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/suggestion/*", WORD_SUG);
+
+        sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/rand", WORD_RAND);
     }
 
     @Override
@@ -74,6 +77,9 @@ public class DictionaryProvider extends ContentProvider {
             case WORD_SUG:
                 cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
+            case WORD_RAND:
+                cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI" + uri);
         }
@@ -90,6 +96,7 @@ public class DictionaryProvider extends ContentProvider {
                 return DictionaryEntry.CONTENT_LIST_TYPE;
             case WORD_ID:
             case WORD_ENG:
+            case WORD_RAND:
                 return DictionaryEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);

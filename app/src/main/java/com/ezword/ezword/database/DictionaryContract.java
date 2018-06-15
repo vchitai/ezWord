@@ -30,5 +30,6 @@ public class DictionaryContract {
         public static final Uri CONTENT_URI = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY);
         public static final Uri CONTENT_URI_WORD_ENG = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY + "/eng?=");
         public static final Uri CONTENT_URI_WORD_SUG = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY + "/suggestion?=");
+        public static final Uri CONTENT_URI_WORD_RAND = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY + "/rand");
     }
 }

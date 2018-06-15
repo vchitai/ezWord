@@ -49,7 +49,10 @@
         <activity android:name=".activities.SingleWordActivity" />
         <activity android:name=".activities.ListWordActivity" />
         <activity android:name=".activities.ReviseActivity" />
-        <activity android:name=".activities.QuizActivity"></activity>
+        <activity android:name=".activities.QuizActivity"/>
+
+        <receiver android:name="com.ezword.ezword.AlarmReceiver" android:enabled="true"/>
+        <service android:name=".NotificationService"/>
     </application>
 
 </manifest>

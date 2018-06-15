@@ -1,38 +1,33 @@
 package com.ezword.ezword.activities;
 
-import android.animation.LayoutTransition;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.design.widget.TabLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.ezword.ezword.adapters.MainViewPagerAdapter;
+import com.ezword.ezword.AlarmReceiver;
 import com.ezword.ezword.R;
+import com.ezword.ezword.adapters.MainViewPagerAdapter;
 import com.ezword.ezword.dictionary.Dictionary;
-import com.ezword.ezword.dictionary.Word;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private MainViewPagerAdapter mMainPagerAdapter;
     private ViewPager mMainViewPager;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -47,14 +42,33 @@ public class MainActivity extends AppCompatActivity {
         setUpNavigationLayout();
         setUpToolbar();
         setUpViewPager();
-/*
-        mDictionary = Dictionary.getInstance();
-        Word word = mDictionary.search(this, "hello");
-        Log.d("On create", word.getData(Word.WORD_DEFINITION));
-        ArrayList<String> wordList = mDictionary.getRecommendations(this, "ab", 5);
-        for (int i = 0; i < 5; i++) {
-            Log.d("Array list: ", wordList.get(i));
-        }*/
+        setUpDailyNotification();
+    }
+
+    private void setUpDailyNotification() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        alarmIntent.setData((Uri.parse("custom://"+System.currentTimeMillis())));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+
+        Calendar alarmStartTime = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+        alarmStartTime.set(Calendar.HOUR_OF_DAY, 0);
+        alarmStartTime.set(Calendar.MINUTE, 0);
+        alarmStartTime.set(Calendar.SECOND, 0);
+        if (now.after(alarmStartTime)) {
+            Log.d(TAG,"Added a day");
+            alarmStartTime.add(Calendar.DATE, 1);
+        }
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+        Log.d(TAG,"Alarms set for everyday");
     }
 
     private void setUpViewPager() {

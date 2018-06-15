@@ -11,12 +11,13 @@ import com.ezword.ezword.dictionary.Word;
 
 public class SingleWordActivity extends AppCompatActivity {
 
+    public static final String SEARCH_PHRASE = "searchPhrase";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_word);
         Intent intent = getIntent();
-        String searchPhrase = intent.getStringExtra("searchPhrase");
+        String searchPhrase = intent.getStringExtra(SEARCH_PHRASE);
         Word word = Dictionary.getInstance().search(SingleWordActivity.this, searchPhrase);
 
         TextView wordEng = findViewById(R.id.word_item_word);
