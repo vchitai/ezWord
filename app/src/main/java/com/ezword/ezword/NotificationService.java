@@ -14,6 +14,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.ezword.ezword.activities.SingleWordActivity;
+import com.ezword.ezword.database.LocalData;
+import com.ezword.ezword.database.TinyDB;
 import com.ezword.ezword.dictionary.Dictionary;
 import com.ezword.ezword.dictionary.Word;
 
@@ -39,8 +41,12 @@ public class NotificationService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Context context = this.getApplicationContext();
         Word randomWord = Dictionary.getInstance().getRandomWord(context);
+        TinyDB tinyDB = new TinyDB(context);
+        tinyDB.putString(LocalData.TODAY_WORD,randomWord.getData(Word.WORD_ENGLISH));
+
         Intent nIntent = new Intent(this, SingleWordActivity.class);
         nIntent.putExtra(SingleWordActivity.SEARCH_PHRASE,randomWord.getData(Word.WORD_ENGLISH));
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Resources res = this.getResources();

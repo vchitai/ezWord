@@ -5,11 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.database.LocalData;
 import com.ezword.ezword.dictionary.Word;
 
 import java.util.ArrayList;
@@ -18,8 +17,39 @@ import java.util.ArrayList;
  * Created by chita on 03/06/2018.
  */
 
-public class RecentWordAdapter extends RecyclerView.Adapter<RecentWordAdapter.ViewHolder> {
-    ArrayList<Word> recentWord = null;
+public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHolder> {
+    private ArrayList<Word> recentWord = null;
+    public final static int TYPE_HISTORY = 1;
+    public final static int TYPE_BOOKMARK = 2;
+    private int mType;
+
+    public WordListAdapter(Context context, int type) {
+        super();
+        switch (type) {
+            case TYPE_HISTORY:
+                recentWord = LocalData.getInstance(context).getHistoryW();
+                break;
+            case TYPE_BOOKMARK:
+                recentWord = LocalData.getInstance(context).getBookmarkW();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void refreshData() {
+        switch (mType) {
+            case TYPE_HISTORY:
+                recentWord = LocalData.getInstance(null).getHistoryW();
+                break;
+            case TYPE_BOOKMARK:
+                recentWord = LocalData.getInstance(null).getBookmarkW();
+                break;
+            default:
+                break;
+        }
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,7 +71,7 @@ public class RecentWordAdapter extends RecyclerView.Adapter<RecentWordAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return recentWord.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

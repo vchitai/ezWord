@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +15,16 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.ezword.ezword.R;
 import com.ezword.ezword.activities.SingleWordActivity;
 import com.ezword.ezword.adapters.CustomSearchAutoCompleteAdapter;
+import com.ezword.ezword.adapters.WordListAdapter;
+import com.ezword.ezword.database.LocalData;
+import com.ezword.ezword.database.TinyDB;
+import com.ezword.ezword.dictionary.Dictionary;
+import com.ezword.ezword.dictionary.Word;
 
 
 /**
@@ -41,13 +49,25 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRecentlySearch(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.home_recycler_view);
+        WordListAdapter wordListAdapter = new WordListAdapter(getContext(), WordListAdapter.TYPE_HISTORY);
+        recyclerView.setAdapter(wordListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void setupTodayWord(View view) {
+        TinyDB tinyDB = new TinyDB(getContext());
+        final String todayWord = tinyDB.getString(LocalData.TODAY_WORD);
+        Word todayWordW = Dictionary.getInstance().search(getContext(),todayWord);
+        View cardView = view.findViewById(R.id.home_today_word);
+        ((TextView)cardView.findViewById(R.id.word_item_word)).setText(todayWordW.getData(Word.WORD_ENGLISH));
+        ((TextView)cardView.findViewById(R.id.word_item_type)).setText(todayWordW.getData(Word.WORD_TYPE));
+        ((TextView)cardView.findViewById(R.id.word_item_def)).setText(todayWordW.getData(Word.WORD_DEFINITION));
         view.findViewById(R.id.home_today_word).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SingleWordActivity.class);
+                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, todayWord);
                 startActivity(intent);
             }
         });

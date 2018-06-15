@@ -26,6 +26,9 @@ public class Word {
         mPhoneticSpelling = phoneticSpelling;
     }
 
+    public boolean equal(String s) {
+        return mEnglish.equals(s);
+    }
     public String getData(int tag) {
         switch (tag) {
             case WORD_ENGLISH:

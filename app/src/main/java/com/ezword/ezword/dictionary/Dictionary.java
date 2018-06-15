@@ -36,7 +36,7 @@ public class Dictionary {
         String []selectionArgs = new String[]{
                 searchPhrase+"%"
         };
-        String selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + "LIKE ?";
+        String selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + " LIKE ?";
 
         DictionaryDBHelper.getInstance(context).open();
         Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_ENG, projection, selection, selectionArgs, null);

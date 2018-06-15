@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar alarmStartTime = Calendar.getInstance();
         Calendar now = Calendar.getInstance();
-        alarmStartTime.set(Calendar.HOUR_OF_DAY, 0);
-        alarmStartTime.set(Calendar.MINUTE, 0);
+        alarmStartTime.set(Calendar.HOUR_OF_DAY, 21);
+        alarmStartTime.set(Calendar.MINUTE, 54);
         alarmStartTime.set(Calendar.SECOND, 0);
         if (now.after(alarmStartTime)) {
             Log.d(TAG,"Added a day");
