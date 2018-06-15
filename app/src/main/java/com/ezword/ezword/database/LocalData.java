@@ -5,5 +5,5 @@ package com.ezword.ezword.database;
  */
 
 public class LocalData {
-    
+
 }

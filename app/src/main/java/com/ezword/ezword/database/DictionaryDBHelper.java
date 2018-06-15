@@ -1,43 +1,47 @@
 package com.ezword.ezword.database;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import com.ezword.ezword.dictionary.Word;
+import com.ezword.ezword.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 /**
  * Created by chita on 02/05/2018.
  */
 
 public class DictionaryDBHelper extends SQLiteOpenHelper {
+    private final String TAG = this.getClass().getName();
     private static final int DB_VERSION = 2;
     private static final String DB_NAME = "DictionaryDatabase.db";
     private static final String DB_PATH = "data/data/com.ezword.ezword/";
     private Context mContext;
     private SQLiteDatabase mDatabase;
+    private static DictionaryDBHelper mInstance = null;
 
-    public DictionaryDBHelper(Context context) {
+    private DictionaryDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.mContext = context;
-        boolean dbExist = checkDatabase();
-        if (dbExist){
-
-        }
-        else {
-            System.out.println("Database doesn't exist");
+        boolean dbExist = checkDatabaseExist();
+        if (!dbExist) {
+            Log.e(TAG, mContext.getString(R.string.data_not_exist));
             createDatabase();
         }
+    }
+
+    public static DictionaryDBHelper getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new DictionaryDBHelper(context);
+        }
+        return mInstance;
     }
 
     private void createDatabase() {
@@ -81,23 +85,22 @@ public class DictionaryDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    private boolean checkDatabase() {
-        boolean checkdb = false;
+    private boolean checkDatabaseExist() {
+        boolean checkDBExist = false;
         try
         {
             String myPath = DB_PATH + DB_NAME;
             File dbFile = new File(myPath);
-            checkdb = dbFile.exists();
+            checkDBExist = dbFile.exists();
         }
         catch (SQLiteException e)
         {
-            System.out.println("Database doesn't exist");
+            Log.e(TAG, mContext.getString(R.string.data_not_exist));
         }
-        return checkdb;
+        return checkDBExist;
     }
 
     private void copyDatabase() throws IOException {
-        AssetManager dirPath = mContext.getAssets();
         InputStream myInput = mContext.getAssets().open(DB_NAME);
         String outFileName = DB_PATH + DB_NAME;
         OutputStream myOutput = new FileOutputStream(outFileName);
@@ -110,38 +113,5 @@ public class DictionaryDBHelper extends SQLiteOpenHelper {
         myOutput.flush();
         myOutput.close();
         myInput.close();
-    }
-
-    public Word getWord(String inputWord) {
-        SQLiteDatabase db = getMyDatabase();
-        String lowerCase = inputWord.toLowerCase();
-        String query = "select w.WordID, w.WordEnglish, w.Type, w.Definition, w.PhoneticSpelling" +
-                "from Word w where w.WordEnglish like '" + lowerCase + "%'" + "LIMIT 1";
-        Cursor c = db.rawQuery(query, null);
-        c.moveToFirst();
-        Word res = new Word(c.getString(c.getColumnIndex("WordEnglish")),
-                c.getString(c.getColumnIndex("Type")), c.getString(c.getColumnIndex("Definition")),
-                c.getString(c.getColumnIndex("PhoneticSpelling")));
-        c.close();
-        return res;
-    }
-
-    public ArrayList<Word> getListOfWord(String inputWord, int limit) {
-        ArrayList<Word> words = new ArrayList<>();
-        SQLiteDatabase db = getMyDatabase();
-        String lowerCase = inputWord.toLowerCase();
-        String query = "select w.WordID, w.WordEnglish, w.Type, w.Definition, w.PhoneticSpelling" +
-                "from Word w where w.WordEnglish like '" + lowerCase + "%'" + "LIMIT " + limit;
-        Cursor c = db.rawQuery(query, null);
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            Word res = new Word(c.getString(c.getColumnIndex("WordEnglish")),
-                    c.getString(c.getColumnIndex("Type")), c.getString(c.getColumnIndex("Definition")),
-                    c.getString(c.getColumnIndex("PhoneticSpelling")));
-            words.add(res);
-            c.moveToNext();
-        }
-        c.close();
-        return words;
     }
 }

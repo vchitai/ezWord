@@ -1,11 +1,10 @@
 package com.ezword.ezword.dictionary;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 
 import com.ezword.ezword.database.DictionaryContract;
-import com.ezword.ezword.database.DictionaryProvider;
+import com.ezword.ezword.database.DictionaryDBHelper;
 
 import java.util.ArrayList;
 
@@ -28,12 +27,51 @@ public class Dictionary {
 
     public Word search(Context context, String searchPhrase)
     {
-        DictionaryProvider dictionaryProvider = DictionaryProvider.getInstance();
-        return dictionaryProvider.search(context, searchPhrase);
+        Word res = null;
+        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
+        String []selectionArgs = new String[]{
+                searchPhrase
+        };
+        DictionaryDBHelper.getInstance(context).open();
+        Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_ENG, projection, null, selectionArgs, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            res = new Word(c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG)),
+                    c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE)),
+                    c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION)),
+                    c.getString(c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING)));
+            c.close();
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        return res;
     };
 
+    public String[] getAllWords(Context context) {
+        ArrayList<String> res = new ArrayList<>();
+        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG};
+        DictionaryDBHelper.getInstance(context).open();
+        Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI, projection, null, null, null);
+        if (c!=null) {
+            try {
+                int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
+                while (c.moveToNext()) {
+                    res.add(c.getString(wordEngColumnIndex));
+                }
+            } finally {
+                c.close();
+            }
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        String []finalRes = new String[res.size()];
+        finalRes = res.toArray(finalRes);
+        return finalRes;
+    }
+/*
     public ArrayList<String> getRecommendations(Context context, String searchPhrase, Integer limit) {
         DictionaryProvider dictionaryProvider = DictionaryProvider.getInstance();
         return dictionaryProvider.getRecommendations(context, searchPhrase, limit);
-    }
+    }*/
 }

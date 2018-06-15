@@ -18,10 +18,6 @@
         android:id="@+id/nav_contact"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_report"
-            android:icon="@drawable/ic_bug_report_black_24dp"
-            android:title="@string/report_bus" />
-        <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help_black_24dp"
             android:title="@string/help" />

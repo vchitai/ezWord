@@ -28,5 +28,6 @@ public class DictionaryContract {
         public final static String COLUMN_WORD_PHONETIC_SPELLING      = "PhoneticSpelling";
 
         public static final Uri CONTENT_URI = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY);
+        public static final Uri CONTENT_URI_WORD_ENG = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY + "/eng?=");
     }
 }

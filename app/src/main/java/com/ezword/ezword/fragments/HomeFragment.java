@@ -1,15 +1,12 @@
 package com.ezword.ezword.fragments;
 
 
-import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -17,13 +14,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ezword.ezword.R;
-import com.ezword.ezword.activities.MainActivity;
-import com.ezword.ezword.activities.RequestSearchActivity;
 import com.ezword.ezword.activities.SingleWordActivity;
+import com.ezword.ezword.dictionary.Dictionary;
 
 
 /**
@@ -79,7 +74,8 @@ public class HomeFragment extends Fragment {
         final SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
 
         // Create a new ArrayAdapter and add data to search auto complete object.
-        String dataArr[] = {"Apple" , "Amazon" , "Amd", "Microsoft", "Microwave", "MicroNews", "Intel", "Intelligence"};
+        //String dataArr[] = {"Apple" , "Amazon" , "Amd", "Microsoft", "Microwave", "MicroNews", "Intel", "Intelligence"};
+        String dataArr[] = Dictionary.getInstance().getAllWords(getContext());
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, dataArr);
         searchAutoComplete.setAdapter(newsAdapter);
 

@@ -1,6 +1,7 @@
 package com.ezword.ezword.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.activities.ReviseActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -48,6 +50,15 @@ public class ReviewFragment extends Fragment {
         barChart.setData(data);
 
         barChart.invalidate();
+
+        view.findViewById(R.id.review_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ReviseActivity.class);
+
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

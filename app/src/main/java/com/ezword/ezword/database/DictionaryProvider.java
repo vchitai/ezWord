@@ -1,14 +1,8 @@
 package com.ezword.ezword.database;
 
-import com.ezword.ezword.database.DictionaryContract.*;
-import com.ezword.ezword.dictionary.Dictionary;
-import com.ezword.ezword.dictionary.Word;
-
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +10,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
+import com.ezword.ezword.database.DictionaryContract.DictionaryEntry;
 
 /**
  * Created by chita on 02/06/2018.
@@ -27,6 +21,7 @@ public class DictionaryProvider extends ContentProvider {
     public static final  String     LOG_TAG     = DictionaryProvider.class.getSimpleName();
     private static final int        WORD       = 100;
     private static final int        WORD_ID     = 101;
+    private static final int WORD_ENG = 102;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private DictionaryDBHelper mDictDBHelper;
     private SQLiteDatabase mDictDatabase;
@@ -41,11 +36,14 @@ public class DictionaryProvider extends ContentProvider {
     static {
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY, WORD);
         sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/#", WORD_ID);
+        sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/eng/", WORD_ENG);
+        sUriMatcher.addURI(DictionaryContract.CONTENT_AUTHORITY, DictionaryContract.PATH_DICTIONARY + "/eng/*", WORD_ENG);
     }
 
     @Override
     public boolean onCreate() {
-        mDictDBHelper = new DictionaryDBHelper(getContext());
+        mDictDBHelper = DictionaryDBHelper.getInstance(getContext());
+        mDictDatabase = mDictDBHelper.getMyDatabase();
         return true;
     }
 
@@ -55,17 +53,21 @@ public class DictionaryProvider extends ContentProvider {
                         String sortOrder) {
         Cursor cursor;
         int match = sUriMatcher.match(uri);
-
+        SQLiteDatabase myDatabase = mDictDBHelper.getMyDatabase();
         switch (match) {
             case WORD:
-                cursor = mDictDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case WORD_ID:
                 selection = DictionaryEntry._ID + "=?";
                 selectionArgs = new String[]{
                         String.valueOf(ContentUris.parseId(uri))
                 };
-                cursor = mDictDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case WORD_ENG:
+                selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + " LIKE ?";
+                cursor = myDatabase.query(DictionaryEntry.TABLE_WORD, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI" + uri);
@@ -81,6 +83,7 @@ public class DictionaryProvider extends ContentProvider {
             case WORD:
                 return DictionaryEntry.CONTENT_LIST_TYPE;
             case WORD_ID:
+            case WORD_ENG:
                 return DictionaryEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
@@ -102,12 +105,12 @@ public class DictionaryProvider extends ContentProvider {
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
         return 0;
     }
-
+/*
     public Word search(Context context, String searchPhrase)
     {
-        mDictDBHelper = new DictionaryDBHelper(getContext());
-        mDictDBHelper.open();
-        mDictDatabase = mDictDBHelper.getMyDatabase();
+        //mDictDBHelper = new DictionaryDBHelper(getContext());
+        //mDictDBHelper.open();
+        //mDictDatabase = mDictDBHelper.getMyDatabase();
         Word res = null;
         String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION,
@@ -128,12 +131,12 @@ public class DictionaryProvider extends ContentProvider {
         }
         mDictDBHelper.close();
         return res;
-    };
+    }
 
     public ArrayList<String> getRecommendations(Context context, String searchPhrase, Integer limit) {
-        mDictDBHelper = new DictionaryDBHelper(getContext());
+        //mDictDBHelper = new DictionaryDBHelper(getContext());
         mDictDBHelper.open();
-        mDictDatabase = mDictDBHelper.getMyDatabase();
+        //mDictDatabase = mDictDBHelper.getMyDatabase();
         ArrayList<String> res = new ArrayList<>();
         String []projection = {DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG};
         String []selectionArgument = { searchPhrase + "%" };
@@ -152,6 +155,5 @@ public class DictionaryProvider extends ContentProvider {
         }
         mDictDBHelper.close();
         return res;
-    }
-
+    }*/
 }
