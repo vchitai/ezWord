@@ -9,6 +9,15 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
+
+    <style name="AppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@android:color/white</item>
+
+    </style>
     <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
         <item name="colorControlNormal">@android:color/white</item>

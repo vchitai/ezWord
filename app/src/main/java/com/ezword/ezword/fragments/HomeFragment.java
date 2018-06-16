@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ezword.ezword.R;
 import com.ezword.ezword.activities.SingleWordActivity;
@@ -104,18 +105,30 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
                 String searchPhrase = (String)adapterView.getItemAtPosition(itemIndex);
                 searchAutoComplete.setText(searchPhrase);
-                Intent intent = new Intent(getActivity(), SingleWordActivity.class);
-                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, searchPhrase);
-                startActivity(intent);
+                Word w = Dictionary.getInstance().search(getContext(), searchPhrase);
+                if (w!=null) {
+                    LocalData.getInstance(getContext()).addHistory(w);
+                    Intent intent = new Intent(getActivity(), SingleWordActivity.class);
+                    intent.putExtra(SingleWordActivity.SEARCH_PHRASE, searchPhrase);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), R.string.IF_word_not_found, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Intent intent = new Intent(getActivity(), SingleWordActivity.class);
-                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, query);
-                startActivity(intent);
+                Word w = Dictionary.getInstance().search(getContext(), query);
+                if (w!=null) {
+                    LocalData.getInstance(getContext()).addHistory(w);
+                    Intent intent = new Intent(getActivity(), SingleWordActivity.class);
+                    intent.putExtra(SingleWordActivity.SEARCH_PHRASE, query);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), R.string.IF_word_not_found, Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
 

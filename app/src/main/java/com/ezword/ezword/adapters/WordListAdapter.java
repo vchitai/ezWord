@@ -1,6 +1,7 @@
 package com.ezword.ezword.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.activities.SingleWordActivity;
 import com.ezword.ezword.database.LocalData;
 import com.ezword.ezword.dictionary.Word;
 
@@ -22,9 +24,11 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     public final static int TYPE_HISTORY = 1;
     public final static int TYPE_BOOKMARK = 2;
     private int mType;
+    private Context mContext;
 
     public WordListAdapter(Context context, int type) {
         super();
+        mContext = context;
         switch (type) {
             case TYPE_HISTORY:
                 recentWord = LocalData.getInstance(context).getHistoryW();
@@ -62,11 +66,20 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Word currentWord = recentWord.get(position);
+        int realPos = recentWord.size()-position-1;
+        final Word currentWord = recentWord.get(realPos);
 
         holder.mWordWord.setText(currentWord.getData(Word.WORD_ENGLISH));
         holder.mWordType.setText(currentWord.getData(Word.WORD_TYPE));
         holder.mWordDefinition.setText(currentWord.getData(Word.WORD_DEFINITION));
+        holder.mWordView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, SingleWordActivity.class);
+                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, currentWord.getData(Word.WORD_ENGLISH));
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

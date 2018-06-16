@@ -27,5 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/word_item_type"
         style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:maxLines="4"
+        android:ellipsize="end"
         android:text="@string/definition"/>
 </android.support.constraint.ConstraintLayout>

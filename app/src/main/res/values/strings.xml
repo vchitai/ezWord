@@ -22,4 +22,5 @@
     <string name="start_review">Start Review</string>
     <string name="data_not_exist">Database doesn\'t exist</string>
     <string name="notification_sent">Notifications sent.</string>
+    <string name="IF_word_not_found">Word not found!</string>
 </resources>

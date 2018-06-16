@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -112,6 +113,23 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.main_drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+        NavigationView navigationView = findViewById(R.id.main_navigation_view);
+        navigationView.getMenu().findItem(R.id.nav_history).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+        navigationView.getMenu().findItem(R.id.nav_bookmark).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, BookmarkActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 
     @Override

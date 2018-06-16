@@ -25,6 +25,7 @@ public class RequestSearchActivity extends AppCompatActivity {
                 .getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
         final Word word = Dictionary.getInstance().search(RequestSearchActivity.this, text.toString());
         if (word != null) {
+            LocalData.getInstance(RequestSearchActivity.this).addHistory(word);
             View v = findViewById(R.id.request_search_root);
             TextView wordEng = v.findViewById(R.id.word_item_word);
             wordEng.setText(word.getData(Word.WORD_ENGLISH));
@@ -48,7 +49,7 @@ public class RequestSearchActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(RequestSearchActivity.this, "Word not found!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RequestSearchActivity.this, R.string.IF_word_not_found, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -60,8 +60,11 @@ public class LocalData {
     }
 
     public void addHistory(Word w) {
-        if (mHistory.add(w.getData(Word.WORD_ENGLISH))) {
+        if (w!=null) {
+            mHistoryW.remove(w);
+            mHistory.remove(w.getData(Word.WORD_ENGLISH));
             mHistoryW.add(w);
+            mHistory.add(w.getData(Word.WORD_ENGLISH));
             mTinyDB.putListString(HISTORY, new ArrayList<>(mHistory));
         }
     }
