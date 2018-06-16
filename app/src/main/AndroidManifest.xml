@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".services.AlarmReceiver"
             android:enabled="true" />
 
-        <service android:name=".NotificationService" />
+        <service android:name=".services.NotificationService" />
 
         <provider
             android:name=".database.DictionaryProvider"
@@ -21,7 +21,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".main_activities.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,8 +33,7 @@
                 android:name="android.app.default_searchable"
                 android:value="com.ezword.ezword.activities.SearchableActivity" />
         </activity>
-        <activity android:name=".activities.LoadingActivity" />
-        <activity android:name=".activities.SearchableActivity">
+        <activity android:name=".main_activities.SearchableActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -44,7 +43,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".activities.RequestSearchActivity"
+            android:name=".main_activities.RequestSearchActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
             <intent-filter android:label="Look Up!">
                 <action android:name="android.intent.action.PROCESS_TEXT" />
@@ -53,25 +52,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SingleWordActivity"
-            android:parentActivityName=".activities.MainActivity" />
-        <activity android:name=".activities.ListWordActivity" />
-        <activity android:name=".activities.ReviseActivity" />
-        <activity android:name=".activities.QuizActivity" />
+            android:name=".main_activities.SingleWordActivity"
+            android:parentActivityName=".main_activities.MainActivity" />
+        <activity android:name=".main_activities.ReviseActivity" />
+        <activity android:name=".main_activities.QuizActivity" />
         <activity
             android:name=".activities.HistoryActivity"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".main_activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".activities.BookmarkActivity"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".main_activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName=".main_activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".activities.HelpActivity" />
-        <activity android:name=".activities.AboutUsActivity"></activity>
+        <activity
+            android:name=".activities.HelpActivity"
+            android:parentActivityName=".main_activities.MainActivity"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".activities.AboutUsActivity"
+            android:parentActivityName=".main_activities.MainActivity"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".main_activities.SyncActivity"
+            android:parentActivityName=".main_activities.MainActivity"
+            android:theme="@style/AppThemeWithActionBar"/>
     </application>
 
 </manifest>

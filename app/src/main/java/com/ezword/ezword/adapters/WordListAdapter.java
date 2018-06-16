@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ezword.ezword.R;
-import com.ezword.ezword.activities.SingleWordActivity;
+import com.ezword.ezword.main_activities.SingleWordActivity;
 import com.ezword.ezword.database.LocalData;
 import com.ezword.ezword.dictionary.Word;
 

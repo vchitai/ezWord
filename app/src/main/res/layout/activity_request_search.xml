@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:minWidth="400dp"
     android:minHeight="300dp"
-    tools:context="com.ezword.ezword.activities.RequestSearchActivity">
+    tools:context="com.ezword.ezword.main_activities.RequestSearchActivity">
     <ScrollView
         android:id="@+id/request_search_root"
         android:layout_width="match_parent"

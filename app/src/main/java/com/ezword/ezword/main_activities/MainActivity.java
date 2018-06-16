@@ -1,4 +1,4 @@
-package com.ezword.ezword.activities;
+package com.ezword.ezword.main_activities;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -18,8 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.ezword.ezword.AlarmReceiver;
+import com.ezword.ezword.services.AlarmReceiver;
 import com.ezword.ezword.R;
+import com.ezword.ezword.activities.AboutUsActivity;
+import com.ezword.ezword.activities.BookmarkActivity;
+import com.ezword.ezword.activities.HelpActivity;
+import com.ezword.ezword.activities.HistoryActivity;
+import com.ezword.ezword.activities.SettingsActivity;
 import com.ezword.ezword.adapters.MainViewPagerAdapter;
 import com.ezword.ezword.dictionary.Dictionary;
 
@@ -148,6 +153,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+        navigationView.getMenu().findItem(R.id.nav_sync).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, SyncActivity.class);
                 startActivity(intent);
                 return true;
             }

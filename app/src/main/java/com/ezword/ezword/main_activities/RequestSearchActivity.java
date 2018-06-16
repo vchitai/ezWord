@@ -1,4 +1,4 @@
-package com.ezword.ezword.activities;
+package com.ezword.ezword.main_activities;
 
 import android.content.Intent;
 import android.os.Bundle;

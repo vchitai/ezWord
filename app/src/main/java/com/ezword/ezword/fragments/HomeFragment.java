@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezword.ezword.R;
-import com.ezword.ezword.activities.SingleWordActivity;
+import com.ezword.ezword.main_activities.SingleWordActivity;
 import com.ezword.ezword.adapters.CustomSearchAutoCompleteAdapter;
 import com.ezword.ezword.adapters.WordListAdapter;
 import com.ezword.ezword.database.LocalData;

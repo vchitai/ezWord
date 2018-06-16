@@ -1,4 +1,4 @@
-package com.ezword.ezword.activities;
+package com.ezword.ezword.main_activities;
 
 import android.app.SearchManager;
 import android.content.Intent;

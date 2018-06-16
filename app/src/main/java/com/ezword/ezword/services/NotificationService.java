@@ -1,4 +1,4 @@
-package com.ezword.ezword;
+package com.ezword.ezword.services;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -13,7 +13,8 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.ezword.ezword.activities.SingleWordActivity;
+import com.ezword.ezword.R;
+import com.ezword.ezword.main_activities.SingleWordActivity;
 import com.ezword.ezword.database.LocalData;
 import com.ezword.ezword.database.TinyDB;
 import com.ezword.ezword.dictionary.Dictionary;
