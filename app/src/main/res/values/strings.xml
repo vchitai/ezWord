@@ -23,4 +23,5 @@
     <string name="data_not_exist">Database doesn\'t exist</string>
     <string name="notification_sent">Notifications sent.</string>
     <string name="IF_word_not_found">Word not found!</string>
+    <string name="sync">Sync</string>
 </resources>

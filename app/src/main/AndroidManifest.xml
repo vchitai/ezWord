@@ -12,7 +12,9 @@
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true" />
+
         <service android:name=".NotificationService" />
+
         <provider
             android:name=".database.DictionaryProvider"
             android:authorities="com.ezword.ezword"
@@ -50,17 +52,26 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SingleWordActivity"
+        <activity
+            android:name=".activities.SingleWordActivity"
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.ListWordActivity" />
         <activity android:name=".activities.ReviseActivity" />
         <activity android:name=".activities.QuizActivity" />
-        <activity android:name=".activities.HistoryActivity"
+        <activity
+            android:name=".activities.HistoryActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar"/>
-        <activity android:name=".activities.BookmarkActivity"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".activities.BookmarkActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar"/>
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppThemeWithActionBar" />
+        <activity android:name=".activities.HelpActivity" />
+        <activity android:name=".activities.AboutUsActivity"></activity>
     </application>
 
 </manifest>
