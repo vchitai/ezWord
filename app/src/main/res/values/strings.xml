@@ -24,4 +24,13 @@
     <string name="notification_sent">Notifications sent.</string>
     <string name="IF_word_not_found">Word not found!</string>
     <string name="sync">Sync</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="reenter_password">Reenter Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
