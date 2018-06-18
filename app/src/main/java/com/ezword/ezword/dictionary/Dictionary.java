@@ -1,5 +1,6 @@
 package com.ezword.ezword.dictionary;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -56,6 +57,31 @@ public class Dictionary {
         return res;
     }
 
+    public Word getWordById(Context context, int id)
+    {
+        Word res = null;
+        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
+
+        DictionaryDBHelper.getInstance(context).open();
+        Cursor c = context.getContentResolver().query(ContentUris.withAppendedId(DictionaryEntry.CONTENT_URI, id), projection, null, null, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
+            int wordTypeColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE);
+            int wordDefColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION);
+            int wordPronColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING);
+            res = new Word(c.getString(wordEngColumnIndex),
+                    c.getString(wordTypeColumnIndex),
+                    c.getString(wordDefColumnIndex),
+                    c.getString(wordPronColumnIndex));
+            c.close();
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        return res;
+    }
     public String[] getAllWords(Context context) {
         ArrayList<String> res = new ArrayList<>();
         String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG};
