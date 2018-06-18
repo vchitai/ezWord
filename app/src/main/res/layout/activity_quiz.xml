@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ezword.ezword.main_activities.QuizActivity">
+    tools:context=".ui.main_activities.QuizActivity">
 
 </android.support.constraint.ConstraintLayout>

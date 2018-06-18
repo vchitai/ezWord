@@ -18,8 +18,55 @@
         <item name="colorControlNormal">@android:color/white</item>
 
     </style>
-    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <!-- Customize color of navigation drawer icon and back arrow -->
-        <item name="colorControlNormal">@android:color/white</item>
+
+    <style name="TextInputLayoutStyle" parent="Widget.Design.TextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/basic_margin</item>
+        <item name="android:padding">@dimen/basic_padding</item>
+        <item name="android:background">#eee</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+    </style>
+
+    <style name="RoundButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/basic_margin</item>
+        <item name="android:padding">@dimen/basic_padding</item>
+        <item name="android:background">@drawable/button_round_corner</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="RoundImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/basic_margin</item>
+        <item name="android:padding">@dimen/basic_padding</item>
+        <item name="android:background">@drawable/button_round_corner</item>
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="ButtonBarStyle" parent="Widget.AppCompat.ButtonBar">
+        <item name="android:layout_margin">@dimen/basic_margin</item>
+        <item name="android:padding">@dimen/basic_padding</item>
+    </style>
+
+    <style name="ImageViewStyle">
+        <item name="android:layout_margin">@dimen/basic_margin</item>
+        <item name="android:padding">@dimen/basic_padding</item>
+    </style>
+
+    <style name="LogoView" parent="ImageViewStyle">
+        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:layout_width">@dimen/logo_width</item>
+        <item name="android:layout_height">@dimen/logo_height</item>
+    </style>
+
+    <style name="CardViewStyle" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/basic_margin</item>
+        <item name="android:padding">@dimen/basic_padding</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 </resources>

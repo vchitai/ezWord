@@ -6,7 +6,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.ezword.ezword.fragments.HomeFragment">
+    tools:context=".ui.fragments.HomeFragment">
     <android.support.v7.widget.SearchView
         android:id="@+id/home_search_view"
         android:layout_width="match_parent"
@@ -16,28 +16,52 @@
         app:searchIcon="@drawable/ic_search_black_24dp"
         app:closeIcon="@drawable/ic_clear_black_24dp"
         app:showDividers="beginning"
-        android:layout_marginHorizontal="8dp"
+        android:layout_margin="@dimen/basic_margin"
+        android:padding="@dimen/basic_padding"
         android:background="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/home_today_word"
+    <TextView
+        android:id="@+id/home_today_word_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_margin="8dp"
+        android:labelFor="@id/home_today_word"
+        android:text="@string/today_word"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/basic_margin"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@id/home_search_view"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/home_today_word"
+        style="@style/CardViewStyle"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_search_view">
+        app:layout_constraintTop_toBottomOf="@id/home_today_word_label">
         <include layout="@layout/word_item"/>
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/home_recycler_view_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/home_today_word"
+        android:text="@string/recent_words"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/basic_margin"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@id/home_today_word"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/home_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/home_today_word"
+        android:layout_margin="@dimen/basic_margin"
+        android:paddingBottom="@dimen/basic_padding"
+        app:layout_constraintTop_toBottomOf="@id/home_recycler_view_label"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
     </android.support.v7.widget.RecyclerView>
