@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezword.ezword.R;
-import com.ezword.ezword.ui.main_activities.SingleWordActivity;
-import com.ezword.ezword.ui.adapters.WordSearchViewAdapter;
-import com.ezword.ezword.ui.adapters.WordListAdapter;
 import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.database.TinyDB;
 import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.Word;
+import com.ezword.ezword.ui.adapters.WordSearchViewAdapter;
+import com.ezword.ezword.ui.main_activities.SingleWordActivity;
 
 
 /**
@@ -45,17 +42,34 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         setupSearchArea(view);
         setupTodayWord(view);
-        setupRecentlySearch(view);
+        //setupRecentlySearch(view);
+        setupLastLookUp(view);
         return view;
     }
 
+    private void setupLastLookUp(View view) {
+        final Word lastLookUp = LocalData.getInstance(getContext()).getLastLookUp();
+        View cardView = view.findViewById(R.id.home_last_look_up);
+        ((TextView)cardView.findViewById(R.id.word_item_word)).setText(lastLookUp.getData(Word.WORD_ENGLISH));
+        ((TextView)cardView.findViewById(R.id.word_item_type)).setText(lastLookUp.getData(Word.WORD_TYPE));
+        ((TextView)cardView.findViewById(R.id.word_item_def)).setText(lastLookUp.getData(Word.WORD_DEFINITION));
+        view.findViewById(R.id.home_last_look_up).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SingleWordActivity.class);
+                intent.putExtra(SingleWordActivity.SEARCH_PHRASE, lastLookUp.getData(Word.WORD_ENGLISH));
+                startActivity(intent);
+            }
+        });
+    }
+/*
     private void setupRecentlySearch(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.home_recycler_view);
         WordListAdapter wordListAdapter = new WordListAdapter(getContext(), WordListAdapter.TYPE_HISTORY, R.layout.word_item_2);
         recyclerView.setAdapter(wordListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-
+*/
     private void setupTodayWord(View view) {
         TinyDB tinyDB = new TinyDB(getContext());
         final String todayWord = tinyDB.getString(LocalData.TODAY_WORD);

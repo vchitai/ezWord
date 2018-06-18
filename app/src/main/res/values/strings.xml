@@ -40,4 +40,5 @@
     <string name="start_sync">Start Sync</string>
     <string name="today_word">Today Word</string>
     <string name="recent_words">Recent Words</string>
+    <string name="sync_status">Sync Status</string>
 </resources>

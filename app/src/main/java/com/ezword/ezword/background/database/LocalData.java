@@ -59,6 +59,9 @@ public class LocalData {
         return mBookmarkW;
     }
 
+    public Word getLastLookUp() {
+        return mHistoryW.get(mHistoryW.size()-1);
+    }
     public void addHistory(Word w) {
         if (w!=null) {
             mHistoryW.remove(w);
