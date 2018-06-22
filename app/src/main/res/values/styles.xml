@@ -57,7 +57,7 @@
     </style>
 
     <style name="LogoView" parent="ImageViewStyle">
-        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:src">@drawable/icon</item>
         <item name="android:layout_width">@dimen/logo_width</item>
         <item name="android:layout_height">@dimen/logo_height</item>
     </style>

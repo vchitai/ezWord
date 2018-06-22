@@ -3,7 +3,7 @@
     <PreferenceCategory
         android:title="App Settings">
         <SwitchPreference
-            android:key="Daily word"
+            android:key="daily-word-enable"
             android:title="Daily word">
 
         </SwitchPreference>

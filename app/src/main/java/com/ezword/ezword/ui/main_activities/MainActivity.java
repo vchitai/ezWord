@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.services.AlarmReceiver;
 import com.ezword.ezword.R;
 import com.ezword.ezword.ui.activities.AboutUsActivity;
@@ -59,20 +60,22 @@ public class MainActivity extends AppCompatActivity {
             alarmManager.cancel(pendingIntent);
         }
 
-        Calendar alarmStartTime = Calendar.getInstance();
-        Calendar now = Calendar.getInstance();
-        alarmStartTime.set(Calendar.HOUR_OF_DAY, 21);
-        alarmStartTime.set(Calendar.MINUTE, 54);
-        alarmStartTime.set(Calendar.SECOND, 0);
-        if (now.after(alarmStartTime)) {
-            Log.d(TAG,"Added a day");
-            alarmStartTime.add(Calendar.DATE, 1);
-        }
+        if (LocalData.getInstance(MainActivity.this).getDailyWordEnable()) {
+            Calendar alarmStartTime = Calendar.getInstance();
+            Calendar now = Calendar.getInstance();
+            alarmStartTime.set(Calendar.HOUR_OF_DAY, 0);
+            alarmStartTime.set(Calendar.MINUTE, 0);
+            alarmStartTime.set(Calendar.SECOND, 0);
+            if (now.after(alarmStartTime)) {
+                Log.d(TAG, "Added a day");
+                alarmStartTime.add(Calendar.DATE, 1);
+            }
 
-        if (alarmManager != null) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            if (alarmManager != null) {
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            }
+            Log.d(TAG, "Alarms set for everyday");
         }
-        Log.d(TAG,"Alarms set for everyday");
     }
 
     private void setUpViewPager() {

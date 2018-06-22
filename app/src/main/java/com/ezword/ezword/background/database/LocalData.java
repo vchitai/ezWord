@@ -7,6 +7,7 @@ import com.ezword.ezword.background.dictionary.Word;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -15,8 +16,9 @@ import java.util.Set;
 
 public class LocalData {
     public static final String TODAY_WORD = "todayWord";
-    public static final String HISTORY = "history";
-    public static final String BOOKMARK = "bookmark";
+    private static final String HISTORY = "history";
+    private static final String BOOKMARK = "bookmark";
+    private static final String LOGIN_TOKEN = "login_token";
     private static LocalData mInstance;
     private TinyDB mTinyDB;
     private Set<String> mHistory;
@@ -115,5 +117,35 @@ public class LocalData {
         if (res)
             mTinyDB.putListString(HISTORY, new ArrayList<>(mHistory));
         return res;
+    }
+
+    public void storeToken(String token) {
+        mTinyDB.putString(LOGIN_TOKEN, token);
+    }
+
+    public String getToken() {
+        return mTinyDB.getString(LOGIN_TOKEN);
+    }
+
+    public boolean checkSynced(String username) {
+        return Objects.equals(mTinyDB.getString("synced-" + username), "synced");
+    }
+
+    public void registerSynced(String username) {
+        mTinyDB.putString("synced-"+username, "synced");
+    }
+
+    public void registerLastSignIn(String username) {
+        mTinyDB.putString("lastSignIn", username);
+    }
+
+    public String getLastSignIn() {
+        return mTinyDB.getString("lastSignIn");
+    }
+
+    public boolean getDailyWordEnable() { return mTinyDB.getBoolean("daily-word-enable");}
+
+    public void setDailyWordEnable(boolean dailyWordEnable) {
+        mTinyDB.putBoolean("daily-word-enable", dailyWordEnable);
     }
 }
