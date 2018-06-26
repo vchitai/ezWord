@@ -45,7 +45,7 @@ public class RequestSearchActivity extends AppCompatActivity {
             findViewById(R.id.request_search_bookmark).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    boolean res = LocalData.getInstance(RequestSearchActivity.this).addBookmark(word);
+                    boolean res = LocalData.getInstance(RequestSearchActivity.this).addBookmark(RequestSearchActivity.this, word);
                     Toast.makeText(RequestSearchActivity.this, res ? "Added":"Already Added", Toast.LENGTH_LONG).show();
                 }
             });

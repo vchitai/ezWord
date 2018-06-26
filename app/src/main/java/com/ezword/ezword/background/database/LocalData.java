@@ -94,10 +94,11 @@ public class LocalData {
     }
 
 
-    public boolean addBookmark(Word w) {
+    public boolean addBookmark(Context context, Word w) {
         boolean res = mBookmark.add(w.getData(Word.WORD_ENGLISH));
         if (res) {
             mBookmarkW.add(w);
+            Dictionary.getInstance().addFlashCardToDatabase(context, w.getWordID());
             mTinyDB.putListString(HISTORY, new ArrayList<>(mBookmark));
         }
         return res;

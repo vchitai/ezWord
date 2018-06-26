@@ -1,12 +1,14 @@
 package com.ezword.ezword.background.dictionary;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
 import com.ezword.ezword.background.database.DictionaryContract;
 import com.ezword.ezword.background.database.DictionaryContract.DictionaryEntry;
 import com.ezword.ezword.background.database.DictionaryDBHelper;
+import com.ezword.ezword.background.database.FlashCardContract;
 
 import java.util.ArrayList;
 
@@ -30,7 +32,8 @@ public class Dictionary {
     public Word search(Context context, String searchPhrase)
     {
         Word res = null;
-        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
+        String []projection = new String[]{ DictionaryContract.DictionaryEntry._ID,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
@@ -43,11 +46,13 @@ public class Dictionary {
         Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_ENG, projection, selection, selectionArgs, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
+            int wordIDColumnIndex = c.getColumnIndex(DictionaryEntry._ID);
             int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
             int wordTypeColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE);
             int wordDefColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION);
             int wordPronColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING);
-            res = new Word(c.getString(wordEngColumnIndex),
+            res = new Word(c.getInt(wordIDColumnIndex),
+                    c.getString(wordEngColumnIndex),
                     c.getString(wordTypeColumnIndex),
                     c.getString(wordDefColumnIndex),
                     c.getString(wordPronColumnIndex));
@@ -60,7 +65,8 @@ public class Dictionary {
     public Word getWordById(Context context, int id)
     {
         Word res = null;
-        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
+        String []projection = new String[]{ DictionaryContract.DictionaryEntry._ID,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
@@ -69,11 +75,13 @@ public class Dictionary {
         Cursor c = context.getContentResolver().query(ContentUris.withAppendedId(DictionaryEntry.CONTENT_URI, id), projection, null, null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
+            int wordIDColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry._ID);
             int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
             int wordTypeColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE);
             int wordDefColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION);
             int wordPronColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING);
-            res = new Word(c.getString(wordEngColumnIndex),
+            res = new Word( c.getInt(wordIDColumnIndex),
+                    c.getString(wordEngColumnIndex),
                     c.getString(wordTypeColumnIndex),
                     c.getString(wordDefColumnIndex),
                     c.getString(wordPronColumnIndex));
@@ -82,6 +90,7 @@ public class Dictionary {
         DictionaryDBHelper.getInstance(context).close();
         return res;
     }
+
     public String[] getAllWords(Context context) {
         ArrayList<String> res = new ArrayList<>();
         String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG};
@@ -131,7 +140,8 @@ public class Dictionary {
 
     public Word getRandomWord(Context context) {
         Word res = null;
-        String []projection = new String[]{DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
+        String []projection = new String[]{ DictionaryContract.DictionaryEntry._ID,
+                DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
@@ -140,11 +150,13 @@ public class Dictionary {
         Cursor c = context.getContentResolver().query(DictionaryContract.DictionaryEntry.CONTENT_URI_WORD_ENG, projection, null, null, sortOrder);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
+            int wordIDColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry._ID);
             int wordEngColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_WORD_ENG);
             int wordTypeColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE);
             int wordDefColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_DEFINITION);
             int wordPronColumnIndex = c.getColumnIndex(DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING);
-            res = new Word(c.getString(wordEngColumnIndex),
+            res = new Word( c.getInt(wordIDColumnIndex),
+                    c.getString(wordEngColumnIndex),
                     c.getString(wordTypeColumnIndex),
                     c.getString(wordDefColumnIndex),
                     c.getString(wordPronColumnIndex));
@@ -152,5 +164,38 @@ public class Dictionary {
         }
         DictionaryDBHelper.getInstance(context).close();
         return res;
+    }
+
+    public boolean checkFlashCardExist(Context context, int wordID) {
+        boolean exist = false;
+        String []projection = new String[] {
+                FlashCardContract.FlashCardEntry.COLUMN_CARD_WORD_ID
+        };
+        String selection = "WordID = ?";
+        String[] selectionArgs = new String[]{String.valueOf(wordID)};
+        DictionaryDBHelper.getInstance(context).open();
+        String sortOrders = " ASC LIMIT 1";
+        Cursor c = context.getContentResolver().query(FlashCardContract.FlashCardEntry.CONTENT_URI, projection,
+                selection, selectionArgs, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            exist = wordID == c.getInt(c.getColumnIndex(FlashCardContract.FlashCardEntry.COLUMN_CARD_WORD_ID));
+            c.close();
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        return exist;
+    }
+
+    public void addFlashCardToDatabase(Context context, int wordID) {
+        if (checkFlashCardExist(context, wordID))
+            return;
+        DictionaryDBHelper.getInstance(context).open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("WordID", wordID);
+        contentValues.put("ConsecutiveCorrect", 1);
+        contentValues.put("NextLearningPoint", System.currentTimeMillis()+ 1000 * 60 * 60);
+        contentValues.put("EF", 1);
+        context.getContentResolver().insert(FlashCardContract.FlashCardEntry.CONTENT_URI, contentValues);
+        DictionaryDBHelper.getInstance(context).close();
     }
 }

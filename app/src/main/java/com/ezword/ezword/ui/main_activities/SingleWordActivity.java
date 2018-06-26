@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.Word;
 
@@ -19,7 +21,7 @@ public class SingleWordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_word);
         Intent intent = getIntent();
         String searchPhrase = intent.getStringExtra(SEARCH_PHRASE);
-        Word word = Dictionary.getInstance().search(SingleWordActivity.this, searchPhrase);
+        final Word word = Dictionary.getInstance().search(SingleWordActivity.this, searchPhrase);
 
         findViewById(R.id.single_word_back_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,5 +37,13 @@ public class SingleWordActivity extends AppCompatActivity {
         wordDef.setText(word.getData(Word.WORD_DEFINITION));
         TextView wordPron = findViewById(R.id.word_item_phonetic);
         wordPron.setText(word.getData(Word.WORD_PHONETIC));
+
+        findViewById(R.id.single_word_bookmark_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean res = LocalData.getInstance(SingleWordActivity.this).addBookmark(SingleWordActivity.this, word);
+                Toast.makeText(SingleWordActivity.this, res ? "Added":"Already Added", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

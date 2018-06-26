@@ -21,7 +21,7 @@ public class DictionaryContract {
 
         public final static String TABLE_WORD = "Word";
 
-        public final static String _ID                     = BaseColumns._ID;
+        public final static String _ID                     = "WordID";
         public final static String COLUMN_WORD_WORD_ENG       = "WordEnglish";
         public final static String COLUMN_WORD_TYPE      = "Type";
         public final static String COLUMN_WORD_DEFINITION = "Definition";
@@ -32,4 +32,6 @@ public class DictionaryContract {
         public static final Uri CONTENT_URI_WORD_SUG = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY + "/suggestion?=");
         public static final Uri CONTENT_URI_WORD_RAND = Uri.parse(BASE_CONTENT_URI + "/" + PATH_DICTIONARY + "/rand");
     }
+
+
 }

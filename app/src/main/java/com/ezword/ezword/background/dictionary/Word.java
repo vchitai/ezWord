@@ -5,6 +5,7 @@ package com.ezword.ezword.background.dictionary;
  */
 
 public class Word {
+    private int mWordID;
     private String mEnglish;
     private String mType;
     private String mDefinition;
@@ -19,7 +20,7 @@ public class Word {
     public static final int WORD_DEFINITION = 2;
     public static final int WORD_PHONETIC = 3;
 
-    public Word(String wordEnglish, String type, String definition, String phoneticSpelling) {
+    public Word(int wordID, String wordEnglish, String type, String definition, String phoneticSpelling) {
         mEnglish = wordEnglish;
         mType = type;
         mDefinition = definition;
@@ -42,4 +43,8 @@ public class Word {
         }
         return null;
     };
+
+    public int getWordID() {
+        return mWordID;
+    }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.ui.main_activities.QuizActivity;
 import com.ezword.ezword.ui.main_activities.ReviseActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -53,9 +54,8 @@ public class ReviewFragment extends Fragment {
         view.findViewById(R.id.review_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ReviseActivity.class);
-
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), QuizActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
         return view;
