@@ -50,9 +50,16 @@ public class HomeFragment extends Fragment {
     private void setupLastLookUp(View view) {
         final Word lastLookUp = LocalData.getInstance(getContext()).getLastLookUp();
         View cardView = view.findViewById(R.id.home_last_look_up);
-        ((TextView)cardView.findViewById(R.id.word_item_word)).setText(lastLookUp.getData(Word.WORD_ENGLISH));
-        ((TextView)cardView.findViewById(R.id.word_item_type)).setText(lastLookUp.getData(Word.WORD_TYPE));
-        ((TextView)cardView.findViewById(R.id.word_item_def)).setText(lastLookUp.getData(Word.WORD_DEFINITION));
+        if (lastLookUp != null) {
+            ((TextView) cardView.findViewById(R.id.word_item_word)).setText(lastLookUp.getData(Word.WORD_ENGLISH));
+            ((TextView) cardView.findViewById(R.id.word_item_type)).setText(lastLookUp.getData(Word.WORD_TYPE));
+            ((TextView) cardView.findViewById(R.id.word_item_def)).setText(lastLookUp.getData(Word.WORD_DEFINITION));
+        }
+        else {
+            ((TextView) cardView.findViewById(R.id.word_item_word)).setText("");
+            ((TextView) cardView.findViewById(R.id.word_item_type)).setText("");
+            ((TextView) cardView.findViewById(R.id.word_item_def)).setText("");
+        }
         view.findViewById(R.id.home_last_look_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

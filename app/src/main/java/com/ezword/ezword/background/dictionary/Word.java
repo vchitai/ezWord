@@ -15,16 +15,26 @@ public class Word {
 
     }
 
+    public Word(Word word) {
+        mWordID = word.mWordID;
+        mEnglish = word.mEnglish;
+        mType = word.mType;
+        mDefinition = word.mDefinition;
+        mPhoneticSpelling = word.mPhoneticSpelling;
+    }
+
     public static final int WORD_ENGLISH = 0;
     public static final int WORD_TYPE = 1;
     public static final int WORD_DEFINITION = 2;
     public static final int WORD_PHONETIC = 3;
 
     public Word(int wordID, String wordEnglish, String type, String definition, String phoneticSpelling) {
+        mWordID = wordID;
         mEnglish = wordEnglish;
         mType = type;
         mDefinition = definition;
         mPhoneticSpelling = phoneticSpelling;
+        mDefinition = mDefinition.replace("||", "\n");
     }
 
     public boolean equal(String s) {
@@ -43,7 +53,6 @@ public class Word {
         }
         return null;
     };
-
     public int getWordID() {
         return mWordID;
     }

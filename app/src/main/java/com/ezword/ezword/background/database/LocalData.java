@@ -62,7 +62,10 @@ public class LocalData {
     }
 
     public Word getLastLookUp() {
-        return mHistoryW.get(mHistoryW.size()-1);
+        if (mHistoryW.size() > 0) {
+            return mHistoryW.get(mHistoryW.size() - 1);
+        }
+        return null;
     }
     public void addHistory(Word w) {
         if (w!=null) {
