@@ -41,4 +41,5 @@
     <string name="today_word">Today Word</string>
     <string name="recent_words">Recent Words</string>
     <string name="sync_status">Sync Status</string>
+    <string name="next_question"> Next Question</string>
 </resources>
