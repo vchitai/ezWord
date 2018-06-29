@@ -1,6 +1,11 @@
-#  ezWord
+#  :school: ezWord - Easy Word 
 
-:notebook_with_decorative_cover: Ứng dụng học tiếng Anh tích hợp từ điển tra cứu
+Ứng dụng học tiếng Anh tích hợp từ điển tra cứu :notebook_with_decorative_cover: 
+với nhiều chế độ ôn tập khác nhau, giúp trình độ tiếng Anh tăng nhanh như bay :airplane:
+
+![alt text][logo]
+
+[logo]: /img/icon.png "App Icon"
 
 Tình trạng tích hợp:
 
@@ -244,6 +249,7 @@ Nhận request có body gồm username/password
 *Thất bại*: Trả response 400
 
 **Thành công**: Trả response 201, bao gồm thông tin username/user_id
+
 2. /api/check_token
 
 Nhận request Basic Auth token/"random text"
@@ -251,6 +257,7 @@ Nhận request Basic Auth token/"random text"
 *Thất bại*: Trả 'token-check': 'fail'
 
 **Thành công**: Trả 'token-check': 'true'
+
 3. /api/token
 
 Nhận request Basic Auth user/password
@@ -258,6 +265,7 @@ Nhận request Basic Auth user/password
 *Thất bại*: Trả response 400
 
 **Thành công**: Trả 'token-check': 'true'
+
 4. /api/resource
 
 Nhận request Basic Auth token/"random text" hoặc user/password
@@ -265,6 +273,7 @@ Nhận request Basic Auth token/"random text" hoặc user/password
 *Thất bại*: Trả response 400
 
 **Thành công**: Trả thông tin 'bookmark', 'history'
+
 5. /api/update/history
 
 Nhận request Basic Auth token/"random text" hoặc user/password, body 'history'
@@ -272,6 +281,7 @@ Nhận request Basic Auth token/"random text" hoặc user/password, body 'histor
 *Thất bại*: Trả response 400
 
 **Thành công**: Trả thông tin 'history'
+
 6. /api/update/bookmark
 
 Nhận request Basic Auth token/"random text" hoặc user/password, body 'bookmark'
