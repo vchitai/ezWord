@@ -1,7 +1,8 @@
 #  :school: ezWord - Easy Word 
 
 Ứng dụng học tiếng Anh tích hợp từ điển tra cứu :notebook_with_decorative_cover: 
-với nhiều chế độ ôn tập khác nhau, giúp trình độ tiếng Anh tăng nhanh như bay :airplane:
+
+Với nhiều chế độ ôn tập khác nhau, giúp trình độ tiếng Anh tăng nhanh như bay :rocket::stars:
 
 ![alt text][logo]
 
@@ -242,7 +243,7 @@ Khởi động ở port 5555, nhận các request có header 'Content-Type': 'ap
 
 Cung cấp các API:
 
-1. /api/users [Giao thức 'POST']
+1. **/api/users [Giao thức 'POST']**
 
 Nhận request có body gồm username/password
 
@@ -250,7 +251,7 @@ Nhận request có body gồm username/password
 
 **Thành công**: Trả response 201, bao gồm thông tin username/user_id
 
-2. /api/check_token
+2. **/api/check_token**
 
 Nhận request Basic Auth token/"random text"
 
@@ -258,7 +259,7 @@ Nhận request Basic Auth token/"random text"
 
 **Thành công**: Trả 'token-check': 'true'
 
-3. /api/token
+3. **/api/token**
 
 Nhận request Basic Auth user/password
 
@@ -266,7 +267,7 @@ Nhận request Basic Auth user/password
 
 **Thành công**: Trả 'token-check': 'true'
 
-4. /api/resource
+4. **/api/resource**
 
 Nhận request Basic Auth token/"random text" hoặc user/password
 
@@ -274,7 +275,7 @@ Nhận request Basic Auth token/"random text" hoặc user/password
 
 **Thành công**: Trả thông tin 'bookmark', 'history'
 
-5. /api/update/history
+5. **/api/update/history**
 
 Nhận request Basic Auth token/"random text" hoặc user/password, body 'history'
 
@@ -282,7 +283,7 @@ Nhận request Basic Auth token/"random text" hoặc user/password, body 'histor
 
 **Thành công**: Trả thông tin 'history'
 
-6. /api/update/bookmark
+6. **/api/update/bookmark**
 
 Nhận request Basic Auth token/"random text" hoặc user/password, body 'bookmark'
 
