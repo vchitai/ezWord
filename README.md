@@ -25,13 +25,25 @@ Bao gồm Background class xử lý logic nền ứng dụng và IU class xử l
 
 ### Background
 
-- [Database](####database)
-    + DictionaryContract
+- *Database*  - Các class xử lý cơ sở dữ liệu
+    + **DictionaryContract**  
+    
+    Lưu thông tin thiết lập ban đầu của bảng Dictionary
     + DictionaryDBHelper
+    
+    Xử lý trực tiếp trên SQLiteHelper với bảng Dictionary
     + DictionaryProvider
+    
+    Cho phép truy xuất dữ liệu từ bên ngoài
     + FlashCardContract
+    
+    Lưu thông tin thiết lập ban đầu bảng FlashCard
     + LocalData
+    
+    Cổng giao tiếp TinyDB với ứng dụng
     + TinyDB
+
+    Thư viện cho phép sử dụng nhanh SharedPreference
 - Dictionary
     + Dictionary
     + FlashCard
@@ -47,7 +59,7 @@ Bao gồm Background class xử lý logic nền ứng dụng và IU class xử l
 - User
     + User
 
-#### Database
+
 ### UI
 
 - Activities
