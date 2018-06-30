@@ -24,7 +24,7 @@ public class QuizQuestionFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_quiz_question, container, false);
         TextView textView = (TextView)v.findViewById(R.id.text_review_question);
-        textView.setText("Nhan next question de bat dau");
+        textView.setText("Click Next Question Button To Begin Review Session");
         return v;
     }
 
