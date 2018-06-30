@@ -68,13 +68,6 @@ def new_user():
     db.session.commit()
     return jsonify({ 'username': user.username }), 201,{'Location': url_for('get_user', id = user.id, _external = True)}
 
-@app.route('/api/users/<int:id>')
-def get_user(id):
-    user = User.query.get(id)
-    if not user:
-        abort(400)
-    return jsonify({'username': user.username})
-
 @app.route("/")
 def hello():
     return "Hello World!"
