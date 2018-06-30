@@ -173,11 +173,12 @@ public class DictionaryProvider extends ContentProvider {
             case CARD:
                 return db.update(FlashCardContract.FlashCardEntry.TABLE_FLASH_CARD, contentValues, selection, selectionArgs);
             case CARD_ID:
-                selection = FlashCardContract.FlashCardEntry.COLUMN_CARD_WORD_ID + "=?";
+                selection = FlashCardContract.FlashCardEntry._ID + "=?";
                 selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
                 return db.update(FlashCardContract.FlashCardEntry.TABLE_FLASH_CARD, contentValues, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
         }
-        return 0;
     }
 /*
     public Word search(Context context, String searchPhrase)
