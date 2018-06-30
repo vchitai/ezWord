@@ -42,6 +42,7 @@
             android:id="@+id/quiz_next_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/RoundButtonStyle"
             android:text="@string/next_question"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

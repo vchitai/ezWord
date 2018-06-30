@@ -1,6 +1,7 @@
 package com.ezword.ezword.ui.main_activities;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,6 @@ public class QuizActivity extends AppCompatActivity {
     //private QuizGenerator mQuizGenerator;
     private Button mNextQuestion;
     private android.support.v4.app.FragmentManager mFragmentManager;
-    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
     private WordMatchingFragment mWordMatchingFragment;
     private QuizQuestionFragment mQuizQuestionFragment;
     private ArrayList<FlashCard> mFlashCards;
@@ -42,8 +42,9 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        mFragmentManager = getSupportFragmentManager();
 
-        setUpFragment();
+        setUpQuestionFragment();
         mFlashCards = QuizGenerator.generateFlashCards(this, 100);
         i = -1;
 
@@ -72,21 +73,24 @@ public class QuizActivity extends AppCompatActivity {
         }.start();
     }
 
-    private void setUpFragment() {
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mWordMatchingFragment = new WordMatchingFragment();
+    private void setUpQuestionFragment() {
+        android.support.v4.app.FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         mQuizQuestionFragment = new QuizQuestionFragment();
 
-        mFragmentTransaction.replace(R.id.quiz_question_container, mQuizQuestionFragment);
-        mFragmentTransaction.addToBackStack(mQuizQuestionFragment.toString());
-        mFragmentTransaction.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.replace(R.id.quiz_question_container, mQuizQuestionFragment);
+        fragmentTransaction.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-        mFragmentTransaction.replace(R.id.quiz_answer_container, mWordMatchingFragment);
-        mFragmentTransaction.addToBackStack(mWordMatchingFragment.toString());
-        mFragmentTransaction.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.commit();
+    }
 
-        mFragmentTransaction.commit();
+    private void setUpWordMatchingAnswerFragment() {
+        android.support.v4.app.FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        mWordMatchingFragment = new WordMatchingFragment();
+
+        fragmentTransaction.replace(R.id.quiz_answer_container, mWordMatchingFragment);
+        fragmentTransaction.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+        fragmentTransaction.commit();
     }
 
     public void setOnClickButtonListener() {
@@ -100,6 +104,7 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 textAnswer = (EditText)findViewById(R.id.word_matching_answer);
                 if (i == 0) {
+                    setUpWordMatchingAnswerFragment();
                     mQuizQuestionFragment.updateQuizView(mFlashCards.get(i));
                     startCountDown();
                 }
@@ -141,5 +146,14 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT).show();
         }
         mFlashCards.get(num).updateAfterAnswer(answerQuality, this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+            mCountDownTimer = null;
+        }
     }
 }
