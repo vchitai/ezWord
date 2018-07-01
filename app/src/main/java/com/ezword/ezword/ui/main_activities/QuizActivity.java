@@ -1,8 +1,7 @@
 package com.ezword.ezword.ui.main_activities;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,14 +24,15 @@ import java.util.Random;
 public class QuizActivity extends AppCompatActivity {
     private FrameLayout mAnswerContainer;
     private FrameLayout mQuestionContainer;
-    //private QuizGenerator mQuizGenerator;
     private Button mNextQuestion;
     private android.support.v4.app.FragmentManager mFragmentManager;
     private WordMatchingFragment mWordMatchingFragment;
     private QuizQuestionFragment mQuizQuestionFragment;
     private ArrayList<FlashCard> mFlashCards;
+    private ArrayList<FlashCard> mWrongAnswerCards;
     private EditText textAnswer;
     private int i;
+    private int j;
     private TextView mTextCountDown;
     private CountDownTimer mCountDownTimer;
     private long mCountDownTime;
@@ -45,14 +45,19 @@ public class QuizActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
 
         setUpQuestionFragment();
+        setUpWordMatchingAnswerFragment();
+        hideWordMatchingAnswerFragment();
+        mWrongAnswerCards = new ArrayList<>();
         mFlashCards = QuizGenerator.generateFlashCards(this, 100);
         i = -1;
+        j = 0;
 
         mNextQuestion = (Button)findViewById(R.id.quiz_next_question);
         setOnClickButtonListener();
 
         mTextCountDown = (TextView)findViewById(R.id.text_countdown_timer);
         mCountDownTime = 15;
+        mTextCountDown.setVisibility(View.GONE);
         mTextCountDown.setText(String.valueOf(mCountDownTime));
     }
 
@@ -93,6 +98,14 @@ public class QuizActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void showWordMatchingAnswerFragment() {
+        mFragmentManager.beginTransaction().show(mWordMatchingFragment).commit();
+    }
+
+    private void hideWordMatchingAnswerFragment() {
+        mFragmentManager.beginTransaction().hide(mWordMatchingFragment).commit();
+    }
+
     public void setOnClickButtonListener() {
         mNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,24 +117,35 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 textAnswer = (EditText)findViewById(R.id.word_matching_answer);
                 if (i == 0) {
-                    setUpWordMatchingAnswerFragment();
-                    mQuizQuestionFragment.updateQuizView(mFlashCards.get(i));
+                    mTextCountDown.setVisibility(View.VISIBLE);
+                    showWordMatchingAnswerFragment();
+                    mQuizQuestionFragment.updateQuizViewQuestion(mFlashCards.get(i));
                     startCountDown();
                 }
-                if (i > 0) {
+                else if (i > 0 && i < mFlashCards.size()) {
                     checkAnswer(String.valueOf(textAnswer.getText()), i - 1, timeUsed);
                     textAnswer.setText("");
-                    if (i < mFlashCards.size()) {
-                        mQuizQuestionFragment.updateQuizView(mFlashCards.get(i));
-                        startCountDown();
-                    }
-                    else if (i == mFlashCards.size()) {
-                        setResult(Activity.RESULT_OK, null);
-                        finish();
-                    }
+                    mQuizQuestionFragment.updateQuizViewQuestion(mFlashCards.get(i));
+                    startCountDown();
+                }
+                else if (j < mWrongAnswerCards.size()){
+                    mTextCountDown.setText(mWrongAnswerCards.get(j).getAnswer());
+                    mTextCountDown.setTextSize(30);
+                    mTextCountDown.setTextColor(Color.GREEN);
+                    hideWordMatchingAnswerFragment();
+                    mQuizQuestionFragment.updateQuizViewAnswer(mWrongAnswerCards.get(j));
+                    j++;
+                }
+                else if (j == mWrongAnswerCards.size()) {
+                    setResult(Activity.RESULT_OK, null);
+                    finish();
                 }
             }
         });
+    }
+
+    private void showAnswer(FlashCard flashCard) {
+
     }
 
     private void checkAnswer(String textAnswer, int num, long timeUsed) {
@@ -137,6 +161,7 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
         }
         else {
+            mWrongAnswerCards.add(mFlashCards.get(num));
             if (timeUsed < mCountDownTime / 2)
                 answerQuality = FlashCard.ANSWER_QUALITY_INCORRECT;
             else

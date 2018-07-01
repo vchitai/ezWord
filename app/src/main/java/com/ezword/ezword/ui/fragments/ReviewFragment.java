@@ -69,9 +69,7 @@ public class ReviewFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            Intent refresh = new Intent(getActivity(), ReviewFragment.class);
             updateWordNeedToBeReview();
-            startActivity(refresh);
         }
     }
 
@@ -79,8 +77,6 @@ public class ReviewFragment extends Fragment {
         View v = getView();
         TextView textReviewWelcome = v.findViewById(R.id.review_welcome_text);
         int numWordNeedToBeReview = QuizGenerator.countWordNeedToBeReview(getContext());
-        textReviewWelcome.setText("You may need to review " + numWordNeedToBeReview + "words!");
+        textReviewWelcome.setText("You may need to review " + numWordNeedToBeReview + " words!");
     }
-
-
 }
