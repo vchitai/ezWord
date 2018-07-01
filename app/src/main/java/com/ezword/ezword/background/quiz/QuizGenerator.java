@@ -42,4 +42,20 @@ public class QuizGenerator {
         Collections.shuffle(flashCards);
         return flashCards;
     }
+
+    public static int countWordNeedToBeReview(Context context) {
+        int count = 0;
+        DictionaryDBHelper.getInstance(context).open();
+        String[] projection = { "Count (*) as WordNum "};
+        String selection = "NextLearningPoint < ?";
+        String[] selectionArgs = new String[]{String.valueOf(System.currentTimeMillis())};
+        Cursor countCursor = context.getContentResolver().query(FlashCardContract.FlashCardEntry.CONTENT_URI, projection, selection, selectionArgs, null);
+        if (countCursor != null) {
+            countCursor.moveToFirst();
+            count = countCursor.getInt(0);
+            countCursor.close();
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        return count;
+    }
 }

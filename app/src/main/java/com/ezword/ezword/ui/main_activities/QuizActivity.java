@@ -116,8 +116,7 @@ public class QuizActivity extends AppCompatActivity {
                         startCountDown();
                     }
                     else if (i == mFlashCards.size()) {
-                        Intent returnIntent = new Intent();
-                        setResult(Activity.RESULT_CANCELED, returnIntent);
+                        setResult(Activity.RESULT_OK, null);
                         finish();
                     }
                 }
@@ -155,5 +154,7 @@ public class QuizActivity extends AppCompatActivity {
             mCountDownTimer.cancel();
             mCountDownTimer = null;
         }
+        setResult(Activity.RESULT_OK, null);
+        finish();
     }
 }
