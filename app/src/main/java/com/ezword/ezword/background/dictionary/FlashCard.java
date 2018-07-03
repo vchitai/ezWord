@@ -45,7 +45,7 @@ public class FlashCard {
 
     public void updateEF(int answerQuality, Context context) {
         mEF = mEF + (0.1 - (5 - answerQuality) * (0.08 + (5 - answerQuality)* 0.02));
-        this.updateEFInDatabase(context);
+        //this.updateEFInDatabase(context);
     }
 
     private void updateEFInDatabase(Context context) {
@@ -70,7 +70,7 @@ public class FlashCard {
             interval = (int)(Math.pow(mEF, mConsecutiveCorrect * 1.0 - 2) * SECOND_EF) * 1000 * 60 * 60;
         }
         mNextLearningPoint = currentTime + interval;
-        updateDBNextLearningPoint(context);
+        //updateDBNextLearningPoint(context);
     }
 
     private void updateDBNextLearningPoint(Context context) {
@@ -85,7 +85,10 @@ public class FlashCard {
     public void updateConsecutiveCorrect(int answerQuality, Context context) {
         if (answerQuality >= ANSWER_QUALITY_CORRECT_SLOW)
             mConsecutiveCorrect++;
-        updateConsecutiveCorrectInDB(context);
+        else {
+            mConsecutiveCorrect = 1;
+        }
+        //updateConsecutiveCorrectInDB(context);
     }
 
     private void updateConsecutiveCorrectInDB(Context context) {
@@ -101,6 +104,12 @@ public class FlashCard {
         updateConsecutiveCorrect(answerQuality, context);
         updateEF(answerQuality, context);
         updateNextLearningPoint(context);
+    }
+
+    public void updateDB(Context context) {
+        updateConsecutiveCorrectInDB(context);
+        updateEFInDatabase(context);
+        updateDBNextLearningPoint(context);
     }
 
     public String getQuestion() {

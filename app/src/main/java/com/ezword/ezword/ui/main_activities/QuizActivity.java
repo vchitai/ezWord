@@ -134,6 +134,7 @@ public class QuizActivity extends AppCompatActivity {
                     mTextCountDown.setTextColor(Color.GREEN);
                     hideWordMatchingAnswerFragment();
                     mQuizQuestionFragment.updateQuizViewAnswer(mWrongAnswerCards.get(j));
+                    mWrongAnswerCards.get(j).updateDB(getApplicationContext());
                     j++;
                 }
                 else if (j == mWrongAnswerCards.size()) {
@@ -159,6 +160,8 @@ public class QuizActivity extends AppCompatActivity {
             else
                 answerQuality = FlashCard.ANSWER_QUALITY_CORRECT_VERY_SLOW;
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            mFlashCards.get(num).updateAfterAnswer(answerQuality, this);
+            mFlashCards.get(num).updateDB(this);
         }
         else {
             mWrongAnswerCards.add(mFlashCards.get(num));
@@ -168,8 +171,8 @@ public class QuizActivity extends AppCompatActivity {
                 answerQuality = FlashCard.ANSWER_QUALITY_BLACKOUT;
             answerQuality = rand.nextInt(2);
             Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT).show();
+            mFlashCards.get(num).updateAfterAnswer(answerQuality, this);
         }
-        mFlashCards.get(num).updateAfterAnswer(answerQuality, this);
     }
 
     @Override
