@@ -38,7 +38,7 @@ public class Dictionary {
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_TYPE,
                 DictionaryContract.DictionaryEntry.COLUMN_WORD_PHONETIC_SPELLING};
         String []selectionArgs = new String[]{
-                searchPhrase+"%"
+                searchPhrase
         };
         String selection = DictionaryEntry.COLUMN_WORD_WORD_ENG + " LIKE ?";
 

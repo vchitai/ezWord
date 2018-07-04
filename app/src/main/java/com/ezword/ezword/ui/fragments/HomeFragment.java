@@ -82,9 +82,11 @@ public class HomeFragment extends Fragment {
         final String todayWord = tinyDB.getString(LocalData.TODAY_WORD);
         Word todayWordW = Dictionary.getInstance().search(getContext(),todayWord);
         View cardView = view.findViewById(R.id.home_today_word);
-        ((TextView)cardView.findViewById(R.id.word_item_word)).setText(todayWordW.getData(Word.WORD_ENGLISH));
-        ((TextView)cardView.findViewById(R.id.word_item_type)).setText(todayWordW.getData(Word.WORD_TYPE));
-        ((TextView)cardView.findViewById(R.id.word_item_def)).setText(todayWordW.getData(Word.WORD_DEFINITION));
+        if (todayWordW != null) {
+            ((TextView) cardView.findViewById(R.id.word_item_word)).setText(todayWordW.getData(Word.WORD_ENGLISH));
+            ((TextView) cardView.findViewById(R.id.word_item_type)).setText(todayWordW.getData(Word.WORD_TYPE));
+            ((TextView) cardView.findViewById(R.id.word_item_def)).setText(todayWordW.getData(Word.WORD_DEFINITION));
+        }
         view.findViewById(R.id.home_today_word).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

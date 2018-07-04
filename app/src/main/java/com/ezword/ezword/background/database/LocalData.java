@@ -110,7 +110,7 @@ public class LocalData {
             mBookmarkW.add(w);
             mTimePoint.add(System.currentTimeMillis());
             Dictionary.getInstance().addFlashCardToDatabase(context, w.getWordID());
-            mTinyDB.putListString(HISTORY, new ArrayList<>(mBookmark));
+            mTinyDB.putListString(BOOKMARK, new ArrayList<>(mBookmark));
             mTinyDB.putListLong(TIME_POINT, new ArrayList<>(mTimePoint));
         }
         return res;
@@ -120,7 +120,7 @@ public class LocalData {
         boolean res = mBookmark.add(s);
         if (res) {
             mBookmarkW.add(Dictionary.getInstance().search(null, s));
-            mTinyDB.putListString(HISTORY, new ArrayList<>(mBookmark));
+            mTinyDB.putListString(BOOKMARK, new ArrayList<>(mBookmark));
         }
         return res;
     }
