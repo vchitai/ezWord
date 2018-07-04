@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
     private void setupTodayWord(View view) {
         TinyDB tinyDB = new TinyDB(getContext());
         final String todayWord = tinyDB.getString(LocalData.TODAY_WORD);
-        Word todayWordW = Dictionary.getInstance().search(getContext(),todayWord);
+        Word todayWordW = Dictionary.getInstance().getRandomWord(getContext());
         View cardView = view.findViewById(R.id.home_today_word);
         if (todayWordW != null) {
             ((TextView) cardView.findViewById(R.id.word_item_word)).setText(todayWordW.getData(Word.WORD_ENGLISH));
