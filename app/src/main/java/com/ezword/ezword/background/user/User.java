@@ -38,7 +38,7 @@ public class User {
     public final static String UNKNOWN = "Unknown";
 
     private final static String CONNECT_PROTOCOL = "http://";
-    private final static String SERVER_IP = "192.168.1.9:5555/";
+    private final static String SERVER_IP = "192.168.1.77:5555/";
     private final static String API_PATH = "api/";
     private final static String SIGN_UP_PATH = "users";
     private final static String GET_TOKEN_PATH = "token";

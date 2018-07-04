@@ -25,6 +25,7 @@ import com.ezword.ezword.ui.adapters.WordSearchViewAdapter;
 import com.ezword.ezword.ui.main_activities.SingleWordActivity;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -32,7 +33,6 @@ public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
-
     }
 
 
@@ -52,12 +52,12 @@ public class HomeFragment extends Fragment {
         View cardView = view.findViewById(R.id.home_last_look_up);
         if (lastLookUp != null) {
             ((TextView) cardView.findViewById(R.id.word_item_word)).setText(lastLookUp.getData(Word.WORD_ENGLISH));
-            ((TextView) cardView.findViewById(R.id.word_item_type)).setText(lastLookUp.getData(Word.WORD_TYPE));
+            //((TextView) cardView.findViewById(R.id.word_item_type)).setText(lastLookUp.getData(Word.WORD_TYPE));
             ((TextView) cardView.findViewById(R.id.word_item_def)).setText(lastLookUp.getData(Word.WORD_DEFINITION));
         }
         else {
             ((TextView) cardView.findViewById(R.id.word_item_word)).setText("");
-            ((TextView) cardView.findViewById(R.id.word_item_type)).setText("");
+            //((TextView) cardView.findViewById(R.id.word_item_type)).setText("");
             ((TextView) cardView.findViewById(R.id.word_item_def)).setText("");
         }
         view.findViewById(R.id.home_last_look_up).setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         View cardView = view.findViewById(R.id.home_today_word);
         if (todayWordW != null) {
             ((TextView) cardView.findViewById(R.id.word_item_word)).setText(todayWordW.getData(Word.WORD_ENGLISH));
-            ((TextView) cardView.findViewById(R.id.word_item_type)).setText(todayWordW.getData(Word.WORD_TYPE));
+            //((TextView) cardView.findViewById(R.id.word_item_type)).setText(todayWordW.getData(Word.WORD_TYPE));
             ((TextView) cardView.findViewById(R.id.word_item_def)).setText(todayWordW.getData(Word.WORD_DEFINITION));
         }
         view.findViewById(R.id.home_today_word).setOnClickListener(new View.OnClickListener() {

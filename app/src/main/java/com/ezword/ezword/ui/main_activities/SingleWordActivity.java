@@ -1,5 +1,6 @@
 package com.ezword.ezword.ui.main_activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,14 @@ import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.Word;
 
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 public class SingleWordActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 
     public static final String SEARCH_PHRASE = "searchPhrase";
     @Override
@@ -31,8 +39,8 @@ public class SingleWordActivity extends AppCompatActivity {
         });
         TextView wordEng = findViewById(R.id.word_item_word);
         wordEng.setText(word.getData(Word.WORD_ENGLISH));
-        TextView wordType = findViewById(R.id.word_item_type);
-        wordType.setText(word.getData(Word.WORD_TYPE));
+        //TextView wordType = findViewById(R.id.word_item_type);
+        //wordType.setText(word.getData(Word.WORD_TYPE));
         TextView wordDef = findViewById(R.id.word_item_def);
         wordDef.setText(word.getData(Word.WORD_DEFINITION));
         TextView wordPron = findViewById(R.id.word_item_phonetic);

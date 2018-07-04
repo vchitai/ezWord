@@ -2,6 +2,7 @@ package com.ezword.ezword.ui.main_activities;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -17,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.services.AlarmReceiver;
@@ -31,6 +35,12 @@ import com.ezword.ezword.background.dictionary.Dictionary;
 
 import java.util.Calendar;
 
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.calligraphy3.CalligraphyUtils;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private MainViewPagerAdapter mMainPagerAdapter;
@@ -38,6 +48,27 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private Dictionary mDictionary;
+
+    public static void changeTabsFont(TabLayout tabLayout, String fontName) {
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    CalligraphyUtils.applyFontToTextView(tabLayout.getContext(), (TextView) tabViewChild, fontName);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mMainViewPager);
         CharSequence title = tabLayout.getTabAt(0).getText();
         getSupportActionBar().setTitle(title);
+        changeTabsFont(tabLayout,"Lato/Lato-Light.ttf");
     }
 
     private void setUpToolbar() {

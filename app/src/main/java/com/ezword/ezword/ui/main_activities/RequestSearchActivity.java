@@ -1,5 +1,6 @@
 package com.ezword.ezword.ui.main_activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,14 @@ import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.Word;
 
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 public class RequestSearchActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

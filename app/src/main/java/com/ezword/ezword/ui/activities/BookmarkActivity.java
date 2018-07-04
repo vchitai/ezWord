@@ -1,5 +1,6 @@
 package com.ezword.ezword.ui.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,7 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import com.ezword.ezword.R;
 import com.ezword.ezword.ui.adapters.WordListAdapter;
 
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 public class BookmarkActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

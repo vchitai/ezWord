@@ -1,5 +1,6 @@
 package com.ezword.ezword.ui.main_activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +20,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class SyncActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
+
     private Handler mHandler;
 
     @Override

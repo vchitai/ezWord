@@ -49,6 +49,8 @@
             android:id="@+id/main_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:tabTextColor="@android:color/white"
+            app:tabSelectedTextColor="@color/yellow"
             style="@style/Widget.AppCompat.Light.ActionBar.TabBar"
             android:background="@android:color/transparent"
             app:layout_constraintVertical_weight="8"

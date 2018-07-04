@@ -3,6 +3,7 @@ package com.ezword.ezword.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -60,14 +61,16 @@ public class ReviewFragment extends Fragment {
             entries.add(new BarEntry(i, wordOfDay[i]));
         }
         BarDataSet dataSet = new BarDataSet(entries, "Words Learned");
+        dataSet.setColors(Color.RED, Color.GREEN, Color.GRAY, Color.BLACK, Color.BLUE, Color.GREEN, Color.RED);
         BarData data = new BarData(dataSet);
         barChart.setData(data);
+
 
         barChart.invalidate();
 
         TextView textReviewWelcome = view.findViewById(R.id.review_welcome_text);
         int numWordNeedToBeReview = QuizGenerator.countWordNeedToBeReview(getContext());
-        textReviewWelcome.setText("You may need to review " + numWordNeedToBeReview + " words!");
+        textReviewWelcome.setText("You may want to review " + numWordNeedToBeReview + " words!");
 
         view.findViewById(R.id.review_button).setOnClickListener(new View.OnClickListener() {
             @Override

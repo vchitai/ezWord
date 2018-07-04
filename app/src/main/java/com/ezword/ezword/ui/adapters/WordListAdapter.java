@@ -72,7 +72,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         final Word currentWord = recentWord.get(realPos);
 
         holder.mWordWord.setText(currentWord.getData(Word.WORD_ENGLISH));
-        holder.mWordType.setText(currentWord.getData(Word.WORD_TYPE));
+        //holder.mWordType.setText(currentWord.getData(Word.WORD_TYPE));
         holder.mWordDefinition.setText(currentWord.getData(Word.WORD_DEFINITION));
         holder.mWordView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +98,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             mWordWord = view.findViewById(R.id.word_item_word);
-            mWordType = view.findViewById(R.id.word_item_type);
+            //mWordType = view.findViewById(R.id.word_item_type);
             mWordDefinition = view.findViewById(R.id.word_item_def);
             mWordView = view;
         }
