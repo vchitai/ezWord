@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,17 +27,21 @@ public class SingleWordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_word);
+        setContentView(R.layout.activity_single_word_2);
         Intent intent = getIntent();
         String searchPhrase = intent.getStringExtra(SEARCH_PHRASE);
         final Word word = Dictionary.getInstance().search(SingleWordActivity.this, searchPhrase);
-
+/*
         findViewById(R.id.single_word_back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(getParentActivityIntent());
             }
-        });
+        });*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.single_word_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
         TextView wordEng = findViewById(R.id.word_item_word);
         wordEng.setText(word.getData(Word.WORD_ENGLISH));
         //TextView wordType = findViewById(R.id.word_item_type);

@@ -55,7 +55,7 @@
         </activity>
         <activity
             android:name=".ui.main_activities.SingleWordActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity" />
+            android:parentActivityName=".ui.main_activities.MainActivity"/>
         <activity android:name=".ui.main_activities.ReviseActivity" />
         <activity android:name=".ui.main_activities.QuizActivity" />
         <activity
