@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.dictionary.FlashCard;
 import com.ezword.ezword.background.quiz.QuizGenerator;
 import com.ezword.ezword.ui.fragments.QuizQuestionFragment;
@@ -35,7 +37,8 @@ public class QuizActivity extends AppCompatActivity {
     private int j;
     private TextView mTextCountDown;
     private CountDownTimer mCountDownTimer;
-    private long mCountDownTime;
+    private int mCountDownTime;
+    private int mNumOfWordInSession;
     private long timeUsed;
 
     @Override
@@ -48,7 +51,8 @@ public class QuizActivity extends AppCompatActivity {
         setUpWordMatchingAnswerFragment();
         hideWordMatchingAnswerFragment();
         mWrongAnswerCards = new ArrayList<>();
-        mFlashCards = QuizGenerator.generateFlashCards(this, 100);
+        mNumOfWordInSession = LocalData.getInstance(getApplicationContext()).getNumOfWordInSession();
+        mFlashCards = QuizGenerator.generateFlashCards(this, mNumOfWordInSession);
         i = -1;
         j = 0;
 
@@ -56,7 +60,7 @@ public class QuizActivity extends AppCompatActivity {
         setOnClickButtonListener();
 
         mTextCountDown = (TextView)findViewById(R.id.text_countdown_timer);
-        mCountDownTime = 15;
+        mCountDownTime = LocalData.getInstance(getApplicationContext()).getCountDownTime();
         mTextCountDown.setVisibility(View.GONE);
         mTextCountDown.setText(String.valueOf(mCountDownTime));
     }
@@ -117,10 +121,17 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 textAnswer = (EditText)findViewById(R.id.word_matching_answer);
                 if (i == 0) {
-                    mTextCountDown.setVisibility(View.VISIBLE);
-                    showWordMatchingAnswerFragment();
-                    mQuizQuestionFragment.updateQuizViewQuestion(mFlashCards.get(i));
-                    startCountDown();
+                    if (mFlashCards.size() == 0) {
+                        Toast.makeText(getApplicationContext(), "There aren't any words to review", Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_OK, null);
+                        finish();
+                    }
+                    else {
+                        mTextCountDown.setVisibility(View.VISIBLE);
+                        showWordMatchingAnswerFragment();
+                        mQuizQuestionFragment.updateQuizViewQuestion(mFlashCards.get(i));
+                        startCountDown();
+                    }
                 }
                 else if (i > 0 && i < mFlashCards.size()) {
                     checkAnswer(String.valueOf(textAnswer.getText()), i - 1, timeUsed);
@@ -129,6 +140,9 @@ public class QuizActivity extends AppCompatActivity {
                     startCountDown();
                 }
                 else if (j < mWrongAnswerCards.size()){
+                    if (i == mFlashCards.size()) {
+                        checkAnswer(String.valueOf(textAnswer.getText()), i - 1, timeUsed);
+                    }
                     mTextCountDown.setText(mWrongAnswerCards.get(j).getAnswer());
                     mTextCountDown.setTextSize(30);
                     mTextCountDown.setTextColor(Color.GREEN);

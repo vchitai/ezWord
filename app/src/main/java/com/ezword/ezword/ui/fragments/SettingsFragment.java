@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
@@ -15,6 +16,7 @@ import com.ezword.ezword.background.database.LocalData;
 import com.ezword.ezword.background.services.AlarmReceiver;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -34,6 +36,24 @@ public class SettingsFragment extends PreferenceFragment{
             public boolean onPreferenceChange(Preference preference, Object o) {
                 LocalData.getInstance(getActivity()).setDailyWordEnable((boolean)o);
                 setUpDailyNotification();
+                return true;
+            }
+        });
+
+        ListPreference countDownTimePref = (ListPreference)findPreference("countdown_time_pref");
+        countDownTimePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                LocalData.getInstance(getActivity()).setCountDownTime((String) o);
+                return true;
+            }
+        });
+
+        ListPreference numOfWordInSession = (ListPreference) findPreference("num_of_words_one_session");
+        numOfWordInSession.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                LocalData.getInstance(getActivity()).setNumOfWordInSession((String) o);
                 return true;
             }
         });

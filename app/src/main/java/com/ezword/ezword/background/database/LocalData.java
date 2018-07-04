@@ -5,7 +5,6 @@ import android.content.Context;
 import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.Word;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -21,6 +20,8 @@ public class LocalData {
     private static final String BOOKMARK = "bookmark";
     private static final String LOGIN_TOKEN = "login_token";
     private static final String TIME_POINT = "time_point";
+    private static final String COUNT_DOWN_TIME = "count_down_time";
+    private static final String NUM_OF_WORD_IN_SESSION = "num_of_word_in_session";
     private static LocalData mInstance;
     private TinyDB mTinyDB;
     private Set<String> mHistory;
@@ -159,4 +160,29 @@ public class LocalData {
     public void setDailyWordEnable(boolean dailyWordEnable) {
         mTinyDB.putBoolean("daily-word-enable", dailyWordEnable);
     }
+
+    public void setCountDownTime(String countDownTime) {
+        mTinyDB.putInt(COUNT_DOWN_TIME, Integer.parseInt(countDownTime));
+    }
+
+    public void setNumOfWordInSession(String numOfWordInSession) {
+        mTinyDB.putInt(NUM_OF_WORD_IN_SESSION, Integer.parseInt(numOfWordInSession));
+    }
+
+    public int getCountDownTime() {
+        int countDownTime = mTinyDB.getInt(COUNT_DOWN_TIME);
+        if (countDownTime == 0) {
+            return 15;
+        }
+        else
+            return countDownTime;
+    };
+    public int getNumOfWordInSession() {
+        int res = mTinyDB.getInt(NUM_OF_WORD_IN_SESSION);
+        if (res == 0) {
+            return 10;
+        }
+        else
+            return res;
+    };
 }

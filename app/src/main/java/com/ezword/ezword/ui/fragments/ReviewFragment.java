@@ -28,6 +28,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ReviewFragment extends Fragment {
+
     public ReviewFragment() {
         // Required empty public constructor
     }
