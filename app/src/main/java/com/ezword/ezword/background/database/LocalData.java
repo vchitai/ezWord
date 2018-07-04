@@ -5,6 +5,7 @@ import android.content.Context;
 import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.Word;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -19,12 +20,14 @@ public class LocalData {
     private static final String HISTORY = "history";
     private static final String BOOKMARK = "bookmark";
     private static final String LOGIN_TOKEN = "login_token";
+    private static final String TIME_POINT = "time_point";
     private static LocalData mInstance;
     private TinyDB mTinyDB;
     private Set<String> mHistory;
     private Set<String> mBookmark;
     private ArrayList<Word> mHistoryW;
     private ArrayList<Word> mBookmarkW;
+    private ArrayList<Long> mTimePoint;
 
     private LocalData(Context context) {
         mTinyDB = new TinyDB(context);
@@ -36,6 +39,7 @@ public class LocalData {
         mBookmark = new LinkedHashSet<>(mTinyDB.getListString(BOOKMARK));
         for (String s: mBookmark)
             mBookmarkW.add(Dictionary.getInstance().search(context, s));
+        mTimePoint = new ArrayList<>(mTinyDB.getListLong(TIME_POINT));
     }
 
     public static LocalData getInstance(Context context) {
@@ -50,7 +54,7 @@ public class LocalData {
     }
 
     public Set<String> getBookmark() {
-        return mHistory;
+        return mBookmark;
     }
 
     public ArrayList<Word> getHistoryW() {
@@ -60,6 +64,8 @@ public class LocalData {
     public ArrayList<Word> getBookmarkW() {
         return mBookmarkW;
     }
+
+    public ArrayList<Long> getTimePoint() { return mTimePoint; }
 
     public Word getLastLookUp() {
         if (mHistoryW.size() > 0) {
@@ -101,6 +107,7 @@ public class LocalData {
         boolean res = mBookmark.add(w.getData(Word.WORD_ENGLISH));
         if (res) {
             mBookmarkW.add(w);
+            mTimePoint.add(System.currentTimeMillis());
             Dictionary.getInstance().addFlashCardToDatabase(context, w.getWordID());
             mTinyDB.putListString(HISTORY, new ArrayList<>(mBookmark));
         }
@@ -117,7 +124,7 @@ public class LocalData {
     }
 
     public boolean removeBookmark(String s) {
-        boolean res =  mBookmark.remove(s);
+        boolean res = mBookmark.remove(s);
         if (res)
             mTinyDB.putListString(HISTORY, new ArrayList<>(mHistory));
         return res;
