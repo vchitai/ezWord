@@ -111,6 +111,7 @@ public class LocalData {
             mTimePoint.add(System.currentTimeMillis());
             Dictionary.getInstance().addFlashCardToDatabase(context, w.getWordID());
             mTinyDB.putListString(HISTORY, new ArrayList<>(mBookmark));
+            mTinyDB.putListLong(TIME_POINT, new ArrayList<>(mTimePoint));
         }
         return res;
     }
