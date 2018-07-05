@@ -3,9 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/main_background"
     tools:context=".ui.activities.BookmarkActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/bookmark_bookmarks_rv"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/bookmark_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bookmark_bookmark_rv"
+        app:titleTextColor="@android:color/white"
+        android:background="@android:color/transparent"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bookmark_bookmark_rv"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/bookmark_toolbar"
+        android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

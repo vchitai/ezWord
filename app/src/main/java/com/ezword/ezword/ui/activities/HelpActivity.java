@@ -3,6 +3,7 @@ package com.ezword.ezword.ui.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.ezword.ezword.R;
 
@@ -19,6 +20,8 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        setTitle("Help");
+        setTitle("");
+        setSupportActionBar((Toolbar)findViewById(R.id.help_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

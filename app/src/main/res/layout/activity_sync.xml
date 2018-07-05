@@ -4,14 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     tools:context=".ui.main_activities.SyncActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/sync_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@android:color/white"
+        android:background="@android:color/transparent"/>
+
     <TextView
         android:id="@+id/sync_status_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sync_toolbar"
         style="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white"
         android:layout_margin="@dimen/basic_margin"
         android:padding="@dimen/basic_padding"
         android:text="@string/status"/>
@@ -19,8 +29,9 @@
         android:id="@+id/sync_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         app:layout_constraintLeft_toRightOf="@id/sync_status_label"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sync_toolbar"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_margin="@dimen/basic_margin"
         android:padding="@dimen/basic_padding"

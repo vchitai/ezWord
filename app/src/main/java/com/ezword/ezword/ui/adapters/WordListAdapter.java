@@ -3,6 +3,7 @@ package com.ezword.ezword.ui.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
         holder.mWordWord.setText(currentWord.getData(Word.WORD_ENGLISH));
         //holder.mWordType.setText(currentWord.getData(Word.WORD_TYPE));
-        holder.mWordDefinition.setText(currentWord.getData(Word.WORD_DEFINITION));
+        //holder.mWordDefinition.setText(Html.fromHtml(currentWord.getData(Word.WORD_DEFINITION_HTML)));
         holder.mWordView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

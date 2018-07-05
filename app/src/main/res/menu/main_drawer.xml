@@ -6,11 +6,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/ic_history_black_24dp"
+            android:icon="@drawable/ic_history_accent_24dp"
             android:title="@string/history" />
         <item
             android:id="@+id/nav_bookmark"
-            android:icon="@drawable/ic_bookmark_black_24dp"
+            android:icon="@drawable/ic_bookmark_accent_24dp"
             android:title="@string/bookmark" />
     </group>
 
@@ -19,19 +19,19 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_sync"
-            android:icon="@drawable/ic_sync_black_24dp"
+            android:icon="@drawable/ic_sync_accent_24dp"
             android:title="@string/sync" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_black_24dp"
+            android:icon="@drawable/ic_settings_accent_24dp"
             android:title="@string/settings" />
         <item
             android:id="@+id/nav_help"
-            android:icon="@drawable/ic_help_black_24dp"
+            android:icon="@drawable/ic_help_accent_24dp"
             android:title="@string/help" />
         <item
             android:id="@+id/nav_about_us"
-            android:icon="@drawable/ic_info_black_24dp"
+            android:icon="@drawable/ic_info_accent_24dp"
             android:title="@string/about_us" />
     </group>
 

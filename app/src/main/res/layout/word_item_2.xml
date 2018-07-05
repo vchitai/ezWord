@@ -1,44 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/word_item_panel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <TextView
-            android:id="@+id/word_item_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/basic_margin"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:text="@string/word"/>
-        <TextView
-            android:id="@+id/word_item_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/basic_margin"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/word_item_word"
-            style="@style/TextAppearance.AppCompat.Small"
-            android:text="@string/type"/>
-    </android.support.constraint.ConstraintLayout>
     <TextView
-        android:id="@+id/word_item_def"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/word_item_word"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/basic_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/word_item_panel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
-        android:maxLines="4"
-        android:ellipsize="end"
-        android:text="@string/definition"/>
+        app:layout_constraintRight_toRightOf="parent"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@android:color/white"
+        android:text="@string/word"/>
 </android.support.constraint.ConstraintLayout>

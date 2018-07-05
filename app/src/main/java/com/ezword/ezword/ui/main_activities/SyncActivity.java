@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class SyncActivity extends AppCompatActivity {
             }
         });
         findViewById(R.id.sync_button).setClickable(false);
+        setSupportActionBar((Toolbar)findViewById(R.id.sync_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void switchSignUpView() {

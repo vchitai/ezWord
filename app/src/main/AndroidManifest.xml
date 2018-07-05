@@ -60,28 +60,22 @@
         <activity android:name=".ui.main_activities.QuizActivity" />
         <activity
             android:name=".ui.activities.HistoryActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar" />
+            android:parentActivityName=".ui.main_activities.MainActivity" />
         <activity
             android:name=".ui.activities.BookmarkActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar" />
+            android:parentActivityName=".ui.main_activities.MainActivity"/>
         <activity
             android:name=".ui.activities.SettingsActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar" />
+            android:parentActivityName=".ui.main_activities.MainActivity"/>
         <activity
             android:name=".ui.activities.HelpActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar" />
+            android:parentActivityName=".ui.main_activities.MainActivity"/>
         <activity
             android:name=".ui.activities.AboutUsActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar" />
+            android:parentActivityName=".ui.main_activities.MainActivity"/>
         <activity
             android:name=".ui.main_activities.SyncActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar"/>
+            android:parentActivityName=".ui.main_activities.MainActivity"/>
     </application>
 
 </manifest>
