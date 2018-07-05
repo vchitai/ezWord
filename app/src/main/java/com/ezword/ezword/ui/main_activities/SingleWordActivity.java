@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +21,7 @@ import com.ezword.ezword.background.dictionary.Word;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class SingleWordActivity extends AppCompatActivity {
+    private Word currentWord;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -30,7 +35,7 @@ public class SingleWordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_word_2);
         Intent intent = getIntent();
         String searchPhrase = intent.getStringExtra(SEARCH_PHRASE);
-        final Word word = Dictionary.getInstance().search(SingleWordActivity.this, searchPhrase);
+        currentWord = Dictionary.getInstance().search(SingleWordActivity.this, searchPhrase);
 /*
         findViewById(R.id.single_word_back_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,20 +48,36 @@ public class SingleWordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         TextView wordEng = findViewById(R.id.word_item_word);
-        wordEng.setText(word.getData(Word.WORD_ENGLISH));
+        wordEng.setText(currentWord.getData(Word.WORD_ENGLISH));
         //TextView wordType = findViewById(R.id.word_item_type);
-        //wordType.setText(word.getData(Word.WORD_TYPE));
+        //wordType.setText(currentWord.getData(Word.WORD_TYPE));
         TextView wordDef = findViewById(R.id.word_item_def);
-        wordDef.setText(word.getData(Word.WORD_DEFINITION));
+        wordDef.setText(Html.fromHtml(currentWord.getData(Word.WORD_DEFINITION_HTML)));
         TextView wordPron = findViewById(R.id.word_item_phonetic);
-        wordPron.setText(word.getData(Word.WORD_PHONETIC));
+        wordPron.setText(currentWord.getData(Word.WORD_PHONETIC_HTML));
+    }
 
-        findViewById(R.id.single_word_bookmark_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean res = LocalData.getInstance(SingleWordActivity.this).addBookmark(SingleWordActivity.this, word);
-                Toast.makeText(SingleWordActivity.this, res ? "Added":"Already Added", Toast.LENGTH_LONG).show();
-            }
-        });
+    private void addBookmark() {
+        boolean res = LocalData.getInstance(SingleWordActivity.this).addBookmark(SingleWordActivity.this, currentWord);
+        Toast.makeText(SingleWordActivity.this, res ? "Added":"Already Added", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_menu_add:
+                addBookmark();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

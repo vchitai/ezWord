@@ -43,4 +43,5 @@
     <string name="sync_status">Sync Status</string>
     <string name="next_question"> Next Question</string>
     <string name="last_look_up">Last Look Up</string>
+    <string name="add">Bookmark</string>
 </resources>
