@@ -1,6 +1,7 @@
 package com.ezword.ezword.ui.main_activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import com.ezword.ezword.ui.fragments.WordMatchingFragment;
 import java.util.ArrayList;
 import java.util.Random;
 
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 public class QuizActivity extends AppCompatActivity {
     private FrameLayout mAnswerContainer;
     private FrameLayout mQuestionContainer;
@@ -40,6 +43,11 @@ public class QuizActivity extends AppCompatActivity {
     private int mCountDownTime;
     private int mNumOfWordInSession;
     private long timeUsed;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

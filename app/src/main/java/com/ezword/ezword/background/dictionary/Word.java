@@ -49,9 +49,9 @@ public class Word {
             case WORD_TYPE:
                 return mType;
             case WORD_DEFINITION:
-                return mDefinition;
+                return mDefinition.replace(")", ")\n");
             case WORD_DEFINITION_HTML:
-                return mDefinition.replace("(", "<br><br><font color=\"#ffb606\">(").replace(".)", ".)</font><br>").replaceFirst("<br><br>", "");
+                return mDefinition.replace("(", "<br><br><font color=\"#ffb606\">(").replace(")", ")</font><br>").replaceFirst("<br><br>", "");
             case WORD_PHONETIC:
                 return mPhoneticSpelling;
             case WORD_PHONETIC_HTML:

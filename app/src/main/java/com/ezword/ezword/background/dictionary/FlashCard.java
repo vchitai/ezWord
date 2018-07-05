@@ -113,7 +113,7 @@ public class FlashCard {
     }
 
     public String getQuestion() {
-        return mWord.getData(Word.WORD_DEFINITION);
+        return mWord.getData(Word.WORD_DEFINITION_HTML);
     }
 
     public String getAnswer() {

@@ -3,20 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <android.support.v7.widget.CardView
         android:id="@+id/review_question"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_margin="8dp"
+        android:layout_height="280dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:layout_margin="@dimen/basic_margin"
+        android:padding="@dimen/basic_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         android:minHeight="150dp">
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_review_question"
-            android:textColor="@android:color/black"
-            style="@style/TextAppearance.AppCompat.Small"/>
+            android:layout_margin="@dimen/basic_margin"
+            android:padding="@dimen/basic_padding">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_review_question"
+                android:layout_margin="@dimen/basic_margin"
+                android:padding="@dimen/basic_padding"
+                android:textColor="@android:color/white"
+                style="@style/TextAppearance.AppCompat.Body1"/>
+        </ScrollView>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>
