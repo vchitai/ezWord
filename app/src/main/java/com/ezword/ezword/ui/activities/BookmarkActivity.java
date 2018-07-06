@@ -11,10 +11,13 @@ import android.support.v7.widget.Toolbar;
 import com.ezword.ezword.R;
 import com.ezword.ezword.ui.adapters.WordListAdapter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class BookmarkActivity extends AppCompatActivity {
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));

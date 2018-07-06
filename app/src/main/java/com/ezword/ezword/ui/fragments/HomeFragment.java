@@ -1,6 +1,5 @@
 package com.ezword.ezword.ui.fragments;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,11 +23,6 @@ import com.ezword.ezword.background.dictionary.Word;
 import com.ezword.ezword.ui.adapters.WordSearchViewAdapter;
 import com.ezword.ezword.ui.main_activities.SingleWordActivity;
 
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment {
 
 
