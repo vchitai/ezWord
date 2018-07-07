@@ -9,13 +9,16 @@
         <item name="colorControlNormal">@android:color/white</item>
     </style>
 
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="background">@color/colorPrimaryDark</item>
+    </style>
     <style name="AppThemeWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@android:color/white</item>
-
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.Design.TextInputLayout">
@@ -67,5 +70,22 @@
         <item name="android:layout_margin">@dimen/basic_margin</item>
         <item name="android:padding">@dimen/basic_padding</item>
         <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@android:color/white</item>
+        <item name="android:colorAccent">@android:color/white</item>
+    </style>
+    <style name="SettingsDialogStyle" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/white</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonStyle</item>
+    </style>
+    <style name="SettingsFragmentStyle">
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/white</item>
+        <item name="android:alertDialogTheme">@style/SettingsDialogStyle</item>
     </style>
 </resources>
