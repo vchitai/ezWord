@@ -48,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private Dictionary mDictionary;
-
+    private int currentTab = 0;
+    private static final int[] TabIcons = {R.drawable.ic_search_white_24dp,
+            R.drawable.ic_check_white_24dp,
+            R.drawable.ic_search_accent_24dp,
+            R.drawable.ic_check_accent_24dp};
     public static void changeTabsFont(TabLayout tabLayout, String fontName) {
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
@@ -123,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 CharSequence title = tabLayout.getTabAt(position).getText();
+                tabLayout.getTabAt(position).setIcon(TabIcons[position+2]);
                 getSupportActionBar().setTitle(title);
+                tabLayout.getTabAt(currentTab).setIcon(TabIcons[currentTab]);
+                currentTab = position;
+                changeTabsFont(tabLayout,"Lato/Lato-Light.ttf");
             }
 
             @Override
@@ -134,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mMainViewPager);
         CharSequence title = tabLayout.getTabAt(0).getText();
         getSupportActionBar().setTitle(title);
+        tabLayout.getTabAt(0).setIcon(TabIcons[2]);
+        tabLayout.getTabAt(1).setIcon(TabIcons[1]);
         changeTabsFont(tabLayout,"Lato/Lato-Light.ttf");
     }
 
