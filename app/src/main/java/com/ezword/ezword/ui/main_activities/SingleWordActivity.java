@@ -74,7 +74,10 @@ public class SingleWordActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_menu_add:
-                addBookmark();
+                Intent intent = new Intent(SingleWordActivity.this, AddFlashcardActivity.class);
+                intent.putExtra("word", currentWord.getData(Word.WORD_ENGLISH));
+                startActivity(intent);
+                //addBookmark();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

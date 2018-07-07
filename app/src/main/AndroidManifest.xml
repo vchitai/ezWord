@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ezword.ezword">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".background.MyApplication"
@@ -55,7 +56,7 @@
         </activity>
         <activity
             android:name=".ui.main_activities.SingleWordActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"/>
+            android:parentActivityName=".ui.main_activities.MainActivity" />
         <activity android:name=".ui.main_activities.ReviseActivity" />
         <activity android:name=".ui.main_activities.QuizActivity" />
         <activity
@@ -63,20 +64,23 @@
             android:parentActivityName=".ui.main_activities.MainActivity" />
         <activity
             android:name=".ui.activities.BookmarkActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"/>
+            android:parentActivityName=".ui.main_activities.MainActivity" />
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:parentActivityName=".ui.main_activities.MainActivity"
-            android:theme="@style/AppThemeWithActionBar"/>
+            android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".ui.activities.HelpActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"/>
+            android:parentActivityName=".ui.main_activities.MainActivity" />
         <activity
             android:name=".ui.activities.AboutUsActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"/>
+            android:parentActivityName=".ui.main_activities.MainActivity" />
         <activity
             android:name=".ui.main_activities.SyncActivity"
-            android:parentActivityName=".ui.main_activities.MainActivity"/>
+            android:parentActivityName=".ui.main_activities.MainActivity" />
+        <activity
+            android:name=".ui.main_activities.AddFlashcardActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"/>
     </application>
 
 </manifest>

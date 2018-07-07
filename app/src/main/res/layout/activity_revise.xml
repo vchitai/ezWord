@@ -23,7 +23,7 @@
         android:id="@+id/answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Base.V12.Widget.AppCompat.EditText"
+        style="@style/Base.V7.Widget.AppCompat.EditText"
         android:layout_margin="8dp"
         android:padding="8dp"
         android:hint="@string/answer"
