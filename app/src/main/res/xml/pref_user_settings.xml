@@ -5,7 +5,18 @@
         <SwitchPreference
             android:key="daily-word-enable"
             android:title="Daily word">
-
         </SwitchPreference>
+        <ListPreference
+            android:key="countdown_time_pref"
+            android:title="Set countdown time"
+            android:entries="@array/CountDownEntries"
+            android:entryValues="@array/CountDownValues"
+            android:defaultValue="3"/>
+        <ListPreference
+            android:key="num_of_words_one_session"
+            android:title="Set number of words for reviewing session"
+            android:entries="@array/NumOfWordInSessionEntries"
+            android:entryValues="@array/NumOfWordInSessionValues"
+            android:defaultValue="3"/>
     </PreferenceCategory>
 </PreferenceScreen>
