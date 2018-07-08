@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/basic_padding"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/add_fc_note_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_fc_memo"
+        android:textColor="@android:color/white"
+        android:layout_margin="@dimen/basic_margin"
+        android:padding="@dimen/basic_padding"
+        android:text="Select Note:"/>
+    <EditText
+        android:id="@+id/add_fc_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:lines="4"
+        android:textColor="@android:color/white"
+        android:layout_margin="@dimen/basic_margin"
+        android:padding="@dimen/basic_padding"
+        app:layout_constraintTop_toBottomOf="@id/add_fc_note_label"/>
+    <Button
+        android:id="@+id/add_fc_note_prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RoundButtonStyle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Previous"/>
+    <Button
+        android:id="@+id/add_fc_note_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RoundButtonStyle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Save"/>
+</android.support.constraint.ConstraintLayout>

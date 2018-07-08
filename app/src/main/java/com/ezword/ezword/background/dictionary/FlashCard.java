@@ -3,6 +3,7 @@ package com.ezword.ezword.background.dictionary;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import com.ezword.ezword.background.database.DictionaryDBHelper;
 import com.ezword.ezword.background.database.FlashCardContract;
@@ -140,4 +141,8 @@ public class FlashCard {
         mWord = word;
     }
 
+    public static boolean addFlashCard(int word, String memo, String note) {
+        Log.v("s", word + memo + note);
+        return true;
+    }
 }

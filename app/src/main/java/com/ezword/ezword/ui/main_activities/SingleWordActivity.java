@@ -76,6 +76,7 @@ public class SingleWordActivity extends AppCompatActivity {
             case R.id.action_menu_add:
                 Intent intent = new Intent(SingleWordActivity.this, AddFlashcardActivity.class);
                 intent.putExtra("word", currentWord.getData(Word.WORD_ENGLISH));
+                intent.putExtra("word_id", currentWord.getWordID());
                 startActivity(intent);
                 //addBookmark();
                 return true;

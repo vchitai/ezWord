@@ -6,28 +6,4 @@
     android:layout_height="300dp"
     tools:context="com.ezword.ezword.ui.main_activities.AddFlashcardActivity">
 
-    <TextView
-        android:id="@+id/add_fc_memo_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Select Memo:"/>
-    <com.synnapps.carouselview.CarouselView
-        android:id="@+id/add_fc_memo"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/add_fc_memo_label"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" />
-
-    <TextView
-        android:id="@+id/add_fc_note_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_fc_memo"
-        android:text="Select Note:"/>
-    <EditText
-        android:id="@+id/add_fc_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_fc_note_label"/>
 </android.support.constraint.ConstraintLayout>

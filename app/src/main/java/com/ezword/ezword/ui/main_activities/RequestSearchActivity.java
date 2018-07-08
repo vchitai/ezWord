@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -38,10 +39,10 @@ public class RequestSearchActivity extends AppCompatActivity {
             View v = findViewById(R.id.request_search_root);
             TextView wordEng = v.findViewById(R.id.word_item_word);
             wordEng.setText(word.getData(Word.WORD_ENGLISH));
-            TextView wordType = v.findViewById(R.id.word_item_type);
-            wordType.setText(word.getData(Word.WORD_TYPE));
+            //TextView wordType = v.findViewById(R.id.word_item_type);
+            //wordType.setText(word.getData(Word.WORD_TYPE));
             TextView wordDef = v.findViewById(R.id.word_item_def);
-            wordDef.setText(word.getData(Word.WORD_DEFINITION));
+            wordDef.setText(Html.fromHtml(word.getData(Word.WORD_DEFINITION_HTML)));
             findViewById(R.id.request_search_go_to_def).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -53,8 +54,13 @@ public class RequestSearchActivity extends AppCompatActivity {
             findViewById(R.id.request_search_bookmark).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    boolean res = LocalData.getInstance(RequestSearchActivity.this).addBookmark(RequestSearchActivity.this, word);
-                    Toast.makeText(RequestSearchActivity.this, res ? "Added":"Already Added", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(RequestSearchActivity.this, AddFlashcardActivity.class);
+                    intent.putExtra("word", word.getData(Word.WORD_ENGLISH));
+                    intent.putExtra("word_id", word.getWordID());
+
+                    startActivity(intent);
+                    //boolean res = LocalData.getInstance(RequestSearchActivity.this).addBookmark(RequestSearchActivity.this, word);
+                    //Toast.makeText(RequestSearchActivity.this, res ? "Added":"Already Added", Toast.LENGTH_LONG).show();
                 }
             });
         } else {
