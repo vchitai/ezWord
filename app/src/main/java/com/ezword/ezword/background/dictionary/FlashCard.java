@@ -140,9 +140,4 @@ public class FlashCard {
     public FlashCard(Word word) {
         mWord = word;
     }
-
-    public static boolean addFlashCard(int word, String memo, String note) {
-        Log.v("s", word + memo + note);
-        return true;
-    }
 }

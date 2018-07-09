@@ -213,7 +213,7 @@ public class SyncActivity extends AppCompatActivity {
                                             .setNegativeButton("Download Data", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    User.getInstance().downloadData();
+                                                    User.getInstance().downloadData(SyncActivity.this);
                                                 }
                                             })
                                             .create()

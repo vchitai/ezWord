@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.ezword.ezword.background.database.DictionaryContract.DictionaryEntry;
+import com.ezword.ezword.background.dictionary.FlashCard;
 
 /**
  * Created by chita on 02/06/2018.
@@ -161,8 +162,19 @@ public class DictionaryProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int delete(@NonNull Uri uri, @Nullable String where, @Nullable String[] whereArgs) {
+        final int match = sUriMatcher.match(uri);
+        SQLiteDatabase db = mDictDBHelper.getMyDatabase();
+        switch (match) {
+            case CARD:
+                return db.delete(FlashCardContract.FlashCardEntry.TABLE_FLASH_CARD, where, whereArgs);
+            case CARD_ID:
+                where = FlashCardContract.FlashCardEntry._ID + "=?";
+                whereArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                return db.delete(FlashCardContract.FlashCardEntry.TABLE_FLASH_CARD, where, whereArgs);
+            default:
+                throw new IllegalArgumentException("Delete is not allowed for " + uri);
+        }
     }
 
     @Override

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ezword.ezword.R;
+import com.ezword.ezword.background.database.LocalData;
+import com.ezword.ezword.background.dictionary.Dictionary;
 import com.ezword.ezword.background.dictionary.FlashCard;
 import com.ezword.ezword.background.services.CustomSearchEngine;
 import com.squareup.picasso.Picasso;
@@ -135,6 +137,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveFlashCard();
+                finish();
             }
         });
         findViewById(R.id.add_fc_note_prev).setOnClickListener(new View.OnClickListener() {
@@ -151,6 +154,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
         String selectedMemo = "";
         if (mCurrentMemo != -1)
             selectedMemo = mSearchResult.get(mCurrentMemo);
-        FlashCard.addFlashCard(mWordId,selectedMemo, note);
+        Dictionary.getInstance().addFlashCardToDatabase(getApplicationContext(), mWordId, selectedMemo, note);
+        LocalData.getInstance(AddFlashcardActivity.this).addBookmark(AddFlashcardActivity.this, Dictionary.getInstance().getWordById(AddFlashcardActivity.this, mWordId));
     }
 }

@@ -7,8 +7,10 @@ import com.ezword.ezword.background.dictionary.Word;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.zip.DeflaterInputStream;
 
 /**
  * Created by chita on 05/06/2018.
@@ -109,11 +111,38 @@ public class LocalData {
         if (res) {
             mBookmarkW.add(w);
             mTimePoint.add(System.currentTimeMillis());
-            Dictionary.getInstance().addFlashCardToDatabase(context, w.getWordID());
             mTinyDB.putListString(BOOKMARK, new ArrayList<>(mBookmark));
             mTinyDB.putListLong(TIME_POINT, new ArrayList<>(mTimePoint));
         }
         return res;
+    }
+
+    public void loadSyncDataFromServer(Context context, List<String> historyItems, List<String> bookmarkItems, String countDownTime, String numWordInSession) {
+        Dictionary.getInstance().deleteAllFlashCardFromDatabase(context);
+        mBookmark.clear();
+        mHistory.clear();
+        mBookmarkW.clear();
+        mHistoryW.clear();
+        for (String s : historyItems) {
+            boolean res = mHistory.add(s);
+            if (res) {
+                Word newWord = Dictionary.getInstance().search(context, s);
+                mHistoryW.add(newWord);
+                Dictionary.getInstance().addFlashCardToDatabase(context, newWord.getWordID(), "", "");
+            }
+        }
+        for (String s : bookmarkItems) {
+            boolean res = mBookmark.add(s);
+            if (res) {
+                Word newWord = Dictionary.getInstance().search(context, s);
+                mBookmarkW.add(newWord);
+                Dictionary.getInstance().addFlashCardToDatabase(context, newWord.getWordID(), "", "");
+            }
+        }
+        mTinyDB.putListString(HISTORY, new ArrayList<String>(mHistory));
+        mTinyDB.putListString(BOOKMARK, new ArrayList<String>(mBookmark));
+        setCountDownTime(countDownTime);
+        setNumOfWordInSession(numWordInSession);
     }
 
     public boolean addBookmark(String s) {

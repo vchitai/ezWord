@@ -4,11 +4,16 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.ezword.ezword.background.database.DictionaryContract;
 import com.ezword.ezword.background.database.DictionaryContract.DictionaryEntry;
 import com.ezword.ezword.background.database.DictionaryDBHelper;
 import com.ezword.ezword.background.database.FlashCardContract;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -186,7 +191,7 @@ public class Dictionary {
         return exist;
     }
 
-    public void addFlashCardToDatabase(Context context, int wordID) {
+    public void addFlashCardToDatabase(Context context, int wordID, String memoLink, String note) {
         if (checkFlashCardExist(context, wordID))
             return;
         DictionaryDBHelper.getInstance(context).open();
@@ -195,7 +200,48 @@ public class Dictionary {
         contentValues.put("ConsecutiveCorrect", 1);
         contentValues.put("NextLearningPoint", System.currentTimeMillis()+ 1000 * 60 * 60);
         contentValues.put("EF", 1);
+        contentValues.put("MemoLink", memoLink);
+        contentValues.put("Note", note);
         context.getContentResolver().insert(FlashCardContract.FlashCardEntry.CONTENT_URI, contentValues);
         DictionaryDBHelper.getInstance(context).close();
+    }
+
+    public void deleteAllFlashCardFromDatabase(Context context) {
+        DictionaryDBHelper.getInstance(context).open();
+        int num = context.getContentResolver().delete(FlashCardContract.FlashCardEntry.CONTENT_URI, null, null);
+        Log.d("num_delete", String.valueOf(num));
+        DictionaryDBHelper.getInstance(context).close();
+    }
+
+    public JSONArray getAllFlashCardInJSON(Context context) {
+        DictionaryDBHelper.getInstance(context).open();
+        JSONArray res = new JSONArray();
+        Cursor c = context.getContentResolver().query(FlashCardContract.FlashCardEntry.CONTENT_URI, null, null, null, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                int totalCols = c.getColumnCount();
+                JSONObject rowObject = new JSONObject();
+                for (int i = 0; i < totalCols; i++) {
+                    if (c.getColumnName(i) != null) {
+                        try {
+                            if (c.getString(i) != null) {
+                                rowObject.put(c.getColumnName(i), c.getString(i));
+                            }
+                            else {
+                                rowObject.put(c.getColumnName(i), "");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                res.put(rowObject);
+                c.moveToNext();
+            }
+            c.close();
+        }
+        DictionaryDBHelper.getInstance(context).close();
+        return res;
     }
 }
