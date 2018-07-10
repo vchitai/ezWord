@@ -4,7 +4,8 @@ from flask_httpauth import HTTPBasicAuth
 from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
-#from database import *
+from database import *
+import json
 
 app = Flask(__name__)
 
@@ -22,6 +23,8 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     history = db.Column(db.Text)
     bookmark = db.Column(db.Text)
+    countDownTime = db.Column(db.Integer)
+    numWordInSession = db.Column(db.Integer)
     def __repr__(self):
         return '<User %r>' % self.username
     
@@ -40,7 +43,13 @@ class User(db.Model):
 
     def set_bookmark(self, bookmark):
         self.bookmark = bookmark
-        
+    
+    def set_count_down_time(self, countDownTime):
+        self.countDownTime = countDownTime
+
+    def set_num_word_in_session(self, numWordInSession):
+        self.numWordInSession = numWordInSession    
+    
     @staticmethod
     def verify_auth_token(token):
         s = Serializer(app.config['SECRET_KEY'])
@@ -57,7 +66,7 @@ class User(db.Model):
 def new_user():
     username = request.json.get('username')
     password = request.json.get('password')
-    print username, password
+    print (username, password)
     if username is None or password is None:
         abort(400) # missing arguments
     if User.query.filter_by(username = username).first() is not None:
@@ -67,6 +76,13 @@ def new_user():
     db.session.add(user)
     db.session.commit()
     return jsonify({ 'username': user.username }), 201,{'Location': url_for('get_user', id = user.id, _external = True)}
+
+@app.route('/api/users/<int:id>')
+def get_user(id):
+    user = User.query.get(id)
+    if not user:
+        abort(400)
+    return jsonify({'username': user.username})
 
 @app.route("/")
 def hello():
@@ -87,7 +103,7 @@ def verify_password(username_or_token, password):
 @app.route('/api/check_token')
 def check_token():
     token = request.authorization.username
-    print token
+    print (token)
     user = User.verify_auth_token(token)
     if not user:
         return jsonify({'token-check':'fail'})
@@ -102,7 +118,24 @@ def get_auth_token():
 @app.route('/api/resource')
 @auth.login_required
 def get_resource():
-    return jsonify({ 'history': '%s' % g.user.history, 'bookmark': '%s' % g.user.bookmark })
+    return jsonify({ 'history': '%s' % g.user.history, 'bookmark': '%s' % g.user.bookmark, 'count_down_time': '%s' % g.user.countDownTime,
+    'num_of_word_in_session': '%s' % g.user.numWordInSession })
+
+@app.route('/api/update_all', methods = ['POST'])
+@auth.login_required
+def update_all():
+    history = request.json.get('history')
+    bookmark = request.json.get('bookmark')
+    countDownTime = request.json.get('count_down_time')
+    numWordInSession = request.json.get('num_of_word_in_session')
+    g.user.set_history(history)
+    g.user.set_bookmark(bookmark)
+    g.user.set_count_down_time(countDownTime)
+    g.user.set_num_word_in_session(numWordInSession)
+    print("hello")
+    db.session.commit()
+    return True
+
 
 @app.route('/api/update/history', methods = ['POST'])
 @auth.login_required
