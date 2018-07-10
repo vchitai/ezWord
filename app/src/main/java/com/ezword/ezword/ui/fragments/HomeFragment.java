@@ -24,7 +24,7 @@ import com.ezword.ezword.ui.adapters.WordSearchViewAdapter;
 import com.ezword.ezword.ui.main_activities.SingleWordActivity;
 
 public class HomeFragment extends Fragment {
-
+    private View mRootView;
 
     public HomeFragment() {
     }
@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
         setupTodayWord(view);
         //setupRecentlySearch(view);
         setupLastLookUp(view);
+        mRootView = view;
         return view;
     }
 
@@ -125,6 +126,7 @@ public class HomeFragment extends Fragment {
                 Word w = Dictionary.getInstance().search(getContext(), searchPhrase);
                 if (w!=null) {
                     LocalData.getInstance(getContext()).addHistory(w);
+                    setupLastLookUp(mRootView);
                     Intent intent = new Intent(getActivity(), SingleWordActivity.class);
                     intent.putExtra(SingleWordActivity.SEARCH_PHRASE, searchPhrase);
                     startActivity(intent);
@@ -140,6 +142,7 @@ public class HomeFragment extends Fragment {
                 Word w = Dictionary.getInstance().search(getContext(), query);
                 if (w!=null) {
                     LocalData.getInstance(getContext()).addHistory(w);
+                    setupLastLookUp(mRootView);
                     Intent intent = new Intent(getActivity(), SingleWordActivity.class);
                     intent.putExtra(SingleWordActivity.SEARCH_PHRASE, query);
                     startActivity(intent);
